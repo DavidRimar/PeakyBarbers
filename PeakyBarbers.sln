@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31729.503
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PeakyBarbers.Data", "PeakyBarbers.Data\PeakyBarbers.Data.csproj", "{66462CB8-C9DE-40AF-8CD2-C17CA829A544}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{66462CB8-C9DE-40AF-8CD2-C17CA829A544}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{66462CB8-C9DE-40AF-8CD2-C17CA829A544}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{66462CB8-C9DE-40AF-8CD2-C17CA829A544}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{66462CB8-C9DE-40AF-8CD2-C17CA829A544}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {63A1FDF8-0EF8-47C3-BDD4-C50F87FC1D3F}
+	EndGlobalSection
+EndGlobal
