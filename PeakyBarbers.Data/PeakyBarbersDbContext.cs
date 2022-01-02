@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using PeakyBarbers.Data.Entities;
+using PetManager.Data.SeedData;
 using System.Reflection;
 
 namespace PeakyBarbers.Data
@@ -28,6 +29,7 @@ namespace PeakyBarbers.Data
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
 
             // seed data
+            SeedDataConfiguration.ConfigureSeedData(modelBuilder);
         }
     }
 }

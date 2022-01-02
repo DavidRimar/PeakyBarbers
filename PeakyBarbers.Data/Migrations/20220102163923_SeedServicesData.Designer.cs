@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PeakyBarbers.Data;
 
 namespace PeakyBarbers.Data.Migrations
 {
     [DbContext(typeof(PeakyBarbersDbContext))]
-    partial class PeakyBarbersDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220102163923_SeedServicesData")]
+    partial class SeedServicesData
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

@@ -12,6 +12,8 @@ namespace PeakyBarbers.Data.Entities
     {
         public string ServiceName { get; set; }
 
+        public string ServiceDescription { get; set; }
+
         public int ApproximateServiceDurationInMinutes { get; set; }
 
         public decimal ServiceFee { get; set; }

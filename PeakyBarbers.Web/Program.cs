@@ -21,7 +21,7 @@ namespace PeakyBarbers.Web
             using (var scope = host.Services.CreateScope())
             {
 
-                // 1. run migrations
+                // 1. run migrations (updates or creates the local database)
                 var dbContext = scope.ServiceProvider.GetRequiredService<Data.PeakyBarbersDbContext>();
                 var migrations = dbContext.Database.GetMigrations().ToHashSet();
                 if (dbContext.Database.GetAppliedMigrations().Any(a => !migrations.Contains(a)))

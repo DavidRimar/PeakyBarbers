@@ -9,6 +9,7 @@ using Microsoft.Extensions.Hosting;
 using PeakyBarbers.BLL.Services;
 using PeakyBarbers.Data;
 using PeakyBarbers.Data.Entities;
+using PetManager.Data.SeedData;
 using System;
 
 namespace PeakyBarbers.Web
@@ -57,6 +58,10 @@ namespace PeakyBarbers.Web
             services.AddScoped<BarbersService>();
             services.AddScoped<BookingService>();
             services.AddScoped<ServicesService>();
+
+            // USER and ROLE SEEDING
+            services.AddScoped<IRoleSeedService, RoleSeedService>();
+            services.AddScoped<IUserSeedService, UserSeedService>();
 
             // RAZOR PAGES
             services.AddRazorPages();
