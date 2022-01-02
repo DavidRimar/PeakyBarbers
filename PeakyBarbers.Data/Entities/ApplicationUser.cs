@@ -8,7 +8,7 @@ namespace PeakyBarbers.Data.Entities
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public Gender gender { get; set; }
+        public Gender Gender { get; set; }
         public DateTime DateOfBirth { get; set; }
         public DateTime CreationDate { get; set; }
         public DateTime ModifiedDate { get; set; }

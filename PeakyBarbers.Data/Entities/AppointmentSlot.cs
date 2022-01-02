@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using PeakyBarbers.Data.Enums;
 using System;
 
 namespace PeakyBarbers.Data.Entities
@@ -24,9 +25,11 @@ namespace PeakyBarbers.Data.Entities
 
         public TimeSpan EndTime { get; set; }
 
+        public BookingStatus BookingStatus { get; set; }
+
         public void Configure(EntityTypeBuilder<AppointmentSlot> builder)
         {
-            // Ensure No Overlapping Appointment slots on any given day: TODO
+            // Ensure No Overlapping Appointment slots on any given day for any given Barber: TODO
 
         }
     }

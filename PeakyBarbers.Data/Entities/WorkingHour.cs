@@ -23,6 +23,8 @@ namespace PeakyBarbers.Data.Entities
             // Ensure Unique Relationship Record (A Barber cannot have multiple working schedule for a day)
             builder.HasIndex(ws => new { ws.BarberId, ws.Day })
                     .IsUnique();
+
+            // TODO: On any given day StartTime < EndTime!
         }
     }
 }
