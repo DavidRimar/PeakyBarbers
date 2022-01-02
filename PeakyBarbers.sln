@@ -3,7 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31729.503
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PeakyBarbers.Data", "PeakyBarbers.Data\PeakyBarbers.Data.csproj", "{66462CB8-C9DE-40AF-8CD2-C17CA829A544}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PeakyBarbers.Data", "PeakyBarbers.Data\PeakyBarbers.Data.csproj", "{66462CB8-C9DE-40AF-8CD2-C17CA829A544}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PeakyBarbers.BLL", "PeakyBarbers.BLL\PeakyBarbers.BLL.csproj", "{A2A89678-7C8B-4D60-9F38-8E0E981DB023}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PeakyBarbers.Web", "PeakyBarbers.Web\PeakyBarbers.Web.csproj", "{B9547ABD-FE18-41C9-8D5C-6AE31B348414}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +19,14 @@ Global
 		{66462CB8-C9DE-40AF-8CD2-C17CA829A544}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{66462CB8-C9DE-40AF-8CD2-C17CA829A544}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{66462CB8-C9DE-40AF-8CD2-C17CA829A544}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A2A89678-7C8B-4D60-9F38-8E0E981DB023}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A2A89678-7C8B-4D60-9F38-8E0E981DB023}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A2A89678-7C8B-4D60-9F38-8E0E981DB023}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A2A89678-7C8B-4D60-9F38-8E0E981DB023}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B9547ABD-FE18-41C9-8D5C-6AE31B348414}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B9547ABD-FE18-41C9-8D5C-6AE31B348414}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B9547ABD-FE18-41C9-8D5C-6AE31B348414}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B9547ABD-FE18-41C9-8D5C-6AE31B348414}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
