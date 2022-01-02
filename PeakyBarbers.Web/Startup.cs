@@ -1,16 +1,15 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using PeakyBarbers.BLL.Services;
 using PeakyBarbers.Data;
+using PeakyBarbers.Data.Entities;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace PeakyBarbers.Web
 {
@@ -28,6 +27,31 @@ namespace PeakyBarbers.Web
         {
             // DBCONTEXT
             services.AddDbContext<PeakyBarbersDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("PeakyBarbersLocalDB")));
+
+            // IDENTITY
+            services.AddIdentity<ApplicationUser, IdentityRole<int>>()
+                .AddEntityFrameworkStores<PeakyBarbersDbContext>()
+                .AddDefaultTokenProviders();
+
+            // CONFIGURE IDENTITY OPTIONS
+            services.Configure<IdentityOptions>(options => {
+
+                options.Password.RequireDigit = false;
+                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
+                options.Lockout.MaxFailedAccessAttempts = 5;
+                options.User.RequireUniqueEmail = false;
+                options.SignIn.RequireConfirmedAccount = false;
+            });
+
+            // CONFIGURE COOKIES
+            services.ConfigureApplicationCookie(options => {
+
+                options.Cookie.HttpOnly = true;
+                options.Cookie.IsEssential = true;
+                options.LoginPath = "/Identity/Account/Login";
+                options.AccessDeniedPath = "/Identity/Account/AccessDenied";
+                options.SlidingExpiration = true;
+            });
 
             // BLL SERVICES
             services.AddScoped<BarbersService>();
@@ -56,6 +80,8 @@ namespace PeakyBarbers.Web
             app.UseStaticFiles();
 
             app.UseRouting();
+
+            app.UseAuthentication();
 
             app.UseAuthorization();
 
