@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -9,7 +10,9 @@ using Microsoft.Extensions.Hosting;
 using PeakyBarbers.BLL.Services;
 using PeakyBarbers.Data;
 using PeakyBarbers.Data.Entities;
-using PetManager.Data.SeedData;
+using PeakyBarbers.Data.SeedData;
+using PeakyBarbers.Web.Settings;
+using PeakyBarbers.Web.WebServices;
 using System;
 
 namespace PeakyBarbers.Web
@@ -62,6 +65,10 @@ namespace PeakyBarbers.Web
             // USER and ROLE SEEDING
             services.AddScoped<IRoleSeedService, RoleSeedService>();
             services.AddScoped<IUserSeedService, UserSeedService>();
+
+            // MAIL SETTINGS
+            services.Configure<MailSettings>(Configuration.GetSection("MailSettings"));
+            services.AddTransient<IEmailSender, EmailSender>();
 
             // RAZOR PAGES
             services.AddRazorPages();

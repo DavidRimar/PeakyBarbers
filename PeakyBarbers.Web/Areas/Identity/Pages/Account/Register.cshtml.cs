@@ -14,6 +14,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
 using PeakyBarbers.Data.Entities;
+using PeakyBarbers.Data.Enums;
 
 namespace PeakyBarbers.Web.Areas.Identity.Pages.Account
 {
@@ -61,6 +62,26 @@ namespace PeakyBarbers.Web.Areas.Identity.Pages.Account
             [Display(Name = "Confirm password")]
             [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
             public string ConfirmPassword { get; set; }
+
+            [Required]
+            [Display(Name = "First Name")]
+            public string FirstName { get; set; }
+
+            [Required]
+            [Display(Name = "Last Name")]
+            public string LastName { get; set; }
+
+            [Required]
+            [Display(Name = "Date Of Birth")]
+            public DateTime DateOfBirth { get; set; }
+
+            [Required]
+            [Display(Name = "Gender")]
+            public Gender Gender { get; set; }
+
+            [Required]
+            [Display(Name = "Category")]
+            public CustomerCategory CustomerCategory { get; set; }
         }
 
         public async Task OnGetAsync(string returnUrl = null)
@@ -75,8 +96,23 @@ namespace PeakyBarbers.Web.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = Input.Email, Email = Input.Email };
+                
+                // create a Customer
+                ApplicationUser user = new Customer 
+                { 
+                    UserName = Input.Email, 
+                    Email = Input.Email,
+                    FirstName = Input.FirstName,
+                    LastName = Input.LastName,
+                    DateOfBirth = Input.DateOfBirth,
+                    CreationDate = DateTime.Now,
+                    ModifiedDate = DateTime.Now,
+                    Gender = Input.Gender,
+                    CustomerCategory = Input.CustomerCategory
+                };
+                
                 var result = await _userManager.CreateAsync(user, Input.Password);
+                
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User created a new account with password.");

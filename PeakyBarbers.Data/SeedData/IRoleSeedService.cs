@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace PetManager.Data.SeedData
+namespace PeakyBarbers.Data.SeedData
 {
     public interface IRoleSeedService
     {

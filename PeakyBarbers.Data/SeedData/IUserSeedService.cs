@@ -1,7 +1,6 @@
-﻿using PeakyBarbers.Data;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 
-namespace PetManager.Data.SeedData
+namespace PeakyBarbers.Data.SeedData
 {
     public interface IUserSeedService
     {

@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using PeakyBarbers.Data.Entities;
 using PeakyBarbers.Data.Enums;
 
-namespace PetManager.Data.SeedData
+namespace PeakyBarbers.Data.SeedData
 {
     public class SeedDataConfiguration
     {

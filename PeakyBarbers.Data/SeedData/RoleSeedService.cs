@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using System.Threading.Tasks;
 
-namespace PetManager.Data.SeedData
+namespace PeakyBarbers.Data.SeedData
 {
     public class RoleSeedService : IRoleSeedService
     {

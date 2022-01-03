@@ -1,15 +1,13 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
-using PeakyBarbers.Data;
 using PeakyBarbers.Data.Entities;
 using PeakyBarbers.Data.Enums;
-using PetManager.Data.Extensions;
+using PeakyBarbers.Data.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace PetManager.Data.SeedData
+namespace PeakyBarbers.Data.SeedData
 {
     public class UserSeedService : IUserSeedService
     {
@@ -155,6 +153,7 @@ namespace PetManager.Data.SeedData
                     LastName = "Vardy",
                     DateOfBirth = new DateTime(1990, 08, 11),
                     Gender = Gender.Male,
+                    CustomerCategory = CustomerCategory.Basic,
                     CreationDate = DateTime.Now,
                     ModifiedDate = DateTime.Now,
                     UserName = "jamievardy@example.com",
@@ -168,6 +167,7 @@ namespace PetManager.Data.SeedData
                     LastName = "Grealish",
                     DateOfBirth = new DateTime(1995, 12, 13),
                     Gender = Gender.Male,
+                    CustomerCategory = CustomerCategory.Premium,
                     CreationDate = DateTime.Now,
                     ModifiedDate = DateTime.Now,
                     UserName = "jackgrealish@example.com",
