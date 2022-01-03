@@ -6,12 +6,11 @@ using System.Threading.Tasks;
 
 namespace PeakyBarbers.Data.Enums
 {
-    public enum Gender
+    public enum CustomerCategory
     {
-        Male = 0,
-        Female = 1,
-        Neuter = 2,
-        PreferNotToSay = 3
+        Basic = 0,
+        Standard = 1,
+        Premium = 2
 
     }
 }

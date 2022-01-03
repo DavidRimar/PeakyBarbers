@@ -1,10 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using PeakyBarbers.Data.Enums;
 using System.Collections.Generic;
 
 namespace PeakyBarbers.Data.Entities
 {
     public class Customer : ApplicationUser
     {
+        public CustomerCategory CustomerCategory { get; set; }
         public bool PremiumDiscountEligible { get; set; }
         public bool StandardDiscountEligible { get; set; }
         public ICollection<AppointmentSlot> AllAppointmentSlots { get; set; }
