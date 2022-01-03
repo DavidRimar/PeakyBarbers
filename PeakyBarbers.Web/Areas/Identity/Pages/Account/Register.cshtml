@@ -5,73 +5,127 @@
 }
 
 <h1>@ViewData["Title"]</h1>
-<p class="row p-2">If you wish to become one of our Barbers, please contact thomasshelby@example.com and he will create a Barber account for you.</p>
+<p class="row mx-1 p-2">If you wish to become one of our Barbers, please contact thomasshelby@example.com and he will create a Barber account for you.</p>
 
-<form class="row g-3" asp-route-returnUrl="@Model.ReturnUrl" method="post">
 
-    <!-- FORM - LHS -->
-    <div class="col-md-6">
-        <h4>Key Account Details</h4>
-        
-        <div class="form-group">
-            <label asp-for="Input.Email"></label>
-            <input asp-for="Input.Email" class="form-control" />
-            <span asp-validation-for="Input.Email" class="text-danger"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for="Input.Password"></label>
-            <input asp-for="Input.Password" class="form-control" />
-            <span asp-validation-for="Input.Password" class="text-danger"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for="Input.ConfirmPassword"></label>
-            <input asp-for="Input.ConfirmPassword" class="form-control" />
-            <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
-        </div>
-        <!-- Radio Button - Customer Category -->
-        <div class="form-group">
-            <label asp-for="Input.CustomerCategory"></label>
-            <br>
-            @foreach (var userType in System.Enum.GetValues(typeof(PeakyBarbers.Data.Enums.CustomerCategory)))
-            {
-                <label class="font-italic" asp-for="Input.CustomerCategory">@userType</label>
-                <input type="radio" asp-for="Input.CustomerCategory" value="@((int)userType)" />
+<section class="row">
+
+    
+    <!-- LOCAL ACCOUNT -->
+    <form class="col-md-8" asp-route-returnUrl="@Model.ReturnUrl" method="post">
+        <section class="flex-row">
+
+            <div class="d-flex flex-row-reverse justify-content-center">
+                <h3 class="p-2">Local Account</h3>
+            </div>
+
+            <div class="row g-3 px-1">
+                <!-- FORM - LHS -->
+                <div class="col-md-6">
+                    <h5>Key Account Details</h5>
+
+                    <div class="form-group">
+                        <label asp-for="Input.Email"></label>
+                        <input asp-for="Input.Email" class="form-control" />
+                        <span asp-validation-for="Input.Email" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Input.Password"></label>
+                        <input asp-for="Input.Password" class="form-control" />
+                        <span asp-validation-for="Input.Password" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Input.ConfirmPassword"></label>
+                        <input asp-for="Input.ConfirmPassword" class="form-control" />
+                        <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+                    </div>
+                    <!-- Radio Button - Customer Category -->
+                    <div class="form-group">
+                        <label asp-for="Input.CustomerCategory"></label>
+                        <br>
+                        @foreach (var userType in System.Enum.GetValues(typeof(PeakyBarbers.Data.Enums.CustomerCategory)))
+                        {
+                            <label class="font-italic" asp-for="Input.CustomerCategory">@userType</label>
+                            <input type="radio" asp-for="Input.CustomerCategory" value="@((int)userType)" />
+                        }
+                        <span asp-validation-for="Input.CustomerCategory" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <!-- FORM -RHS -->
+                <div class="col-md-6">
+
+                    <h5>Personal Details</h5>
+                    <div class="form-group">
+                        <label asp-for="Input.FirstName"></label>
+                        <input asp-for="Input.FirstName" class="form-control" />
+                        <span asp-validation-for="Input.FirstName" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Input.LastName"></label>
+                        <input asp-for="Input.LastName" class="form-control" />
+                        <span asp-validation-for="Input.LastName" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Input.DateOfBirth"></label>
+                        <input asp-for="Input.DateOfBirth" class="form-control" />
+                        <span asp-validation-for="Input.DateOfBirth" class="text-danger"></span>
+                    </div>
+                    <!-- Selectable Dropdown - Gender -->
+                    <div class="form-group mt-1">
+                        <label asp-for="Input.Gender"></label>
+                        <select class="custom-select" asp-for="Input.Gender" asp-items="Html.GetEnumSelectList<PeakyBarbers.Data.Enums.Gender>()">
+                            <option value="">Choose gender</option>
+                        </select>
+                        <span asp-validation-for="Input.Gender" class="text-danger"></span>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Register</button>
+                </div>
+
+            </div>
+        </section>
+    </form>
+
+    <!-- EXTERNAL ACCOUNT -->
+    
+    <div class="col-md-4 col-md-offset-2 border-left border-secondary">
+        <section class="flex-row justify-content-center">
+            <h3 class="flex-row ml-4 p-2">External Account</h3>
+            <hr />
+            @{
+                if ((Model.ExternalLogins?.Count ?? 0) == 0)
+                {
+                    <div>
+                        <p>
+                            There are no external authentication services configured. See <a href="https://go.microsoft.com/fwlink/?LinkID=532715">this article</a>
+                            for details on setting up this ASP.NET application to support logging in via external services.
+                        </p>
+                    </div>
+                }
+                else
+                {
+                    <div class="d-flex flex-row justify-content-center">
+                        <div>
+                            <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="form-horizontal">
+                                <div>
+                                    <p>
+                                        @foreach (var provider in Model.ExternalLogins)
+                                        {
+                                            <button type="submit" class="btn btn-outline-primary" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account"><img src="~/images/google_icon.svg" width="20" />@provider.DisplayName</button>
+                                        }
+                                    </p>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                }
             }
-            <span asp-validation-for="Input.CustomerCategory" class="text-danger"></span>
-        </div>
+        </section>
     </div>
 
-    <!-- FORM -RHS -->
-    <div class="col-md-6">
+</section>
 
-        <h4>Personal Details</h4>
-        <div class="form-group">
-            <label asp-for="Input.FirstName"></label>
-            <input asp-for="Input.FirstName" class="form-control" />
-            <span asp-validation-for="Input.FirstName" class="text-danger"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for="Input.LastName"></label>
-            <input asp-for="Input.LastName" class="form-control" />
-            <span asp-validation-for="Input.LastName" class="text-danger"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for="Input.DateOfBirth"></label>
-            <input asp-for="Input.DateOfBirth" class="form-control" />
-            <span asp-validation-for="Input.DateOfBirth" class="text-danger"></span>
-        </div>
-        <!-- Selectable Dropdown - Gender -->
-        <div class="form-group mt-1">
-            <label asp-for="Input.Gender"></label>
-            <select class="custom-select" asp-for="Input.Gender" asp-items="Html.GetEnumSelectList<PeakyBarbers.Data.Enums.Gender>()">
-                <option value="">Choose gender</option>
-            </select>
-            <span asp-validation-for="Input.Gender" class="text-danger"></span>
-        </div>
-
-        <button type="submit" class="btn btn-primary">Register</button>
-    </div>
-</form>
 
 
 @section Scripts {

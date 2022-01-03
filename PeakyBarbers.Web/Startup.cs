@@ -72,6 +72,13 @@ namespace PeakyBarbers.Web
 
             // RAZOR PAGES
             services.AddRazorPages();
+
+            // AUTHENTICATION: GOOGLE
+            services.AddAuthentication().AddGoogle( options => {
+                IConfigurationSection googleAuth = Configuration.GetSection("Authentication:Google");
+                options.ClientId = googleAuth["ClientId"];
+                options.ClientSecret = googleAuth["ClientSecret"];
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
