@@ -1,0 +1,75 @@
+﻿@page "{id:int}"
+@model PeakyBarbers.Web.Pages.Barbers.BarberEditModel
+@{
+    ViewData["Title"] = "Edit Barber";
+}
+
+<h1>Edit Barber Details</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <input type="hidden" asp-for="BarberToEdit.Id" />
+
+            <div class="form-group">
+                <label asp-for="BarberToEdit.Email" class="control-label"></label>
+                <input asp-for="BarberToEdit.Email" class="form-control" readonly="readonly" />
+                <span asp-validation-for="BarberToEdit.Email" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="BarberToEdit.FirstName" class="control-label"></label>
+                <input asp-for="BarberToEdit.FirstName" class="form-control" />
+                <span asp-validation-for="BarberToEdit.FirstName" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="BarberToEdit.LastName" class="control-label"></label>
+                <input asp-for="BarberToEdit.LastName" class="form-control" />
+                <span asp-validation-for="BarberToEdit.LastName" class="text-danger"></span>
+            </div>
+
+            <!-- Selectable Dropdown - Gender -->
+            <div class="form-group mt-1">
+                <label asp-for="BarberToEdit.Gender"></label>
+                <select class="custom-select" asp-for="BarberToEdit.Gender" asp-items="Html.GetEnumSelectList<PeakyBarbers.Data.Enums.Gender>()">
+                    <option value="">Choose gender</option>
+                </select>
+                <span asp-validation-for="BarberToEdit.Gender" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="BarberToEdit.YearsOfExperience" class="control-label"></label>
+                <input asp-for="BarberToEdit.YearsOfExperience" class="form-control" />
+                <span asp-validation-for="BarberToEdit.YearsOfExperience" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="BarberToEdit.OverallRating" class="control-label"></label>
+                <input asp-for="BarberToEdit.OverallRating" class="form-control" />
+                <span asp-validation-for="BarberToEdit.OverallRating" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="BarberToEdit.ProfileDescription" class="control-label"></label>
+                <input asp-for="BarberToEdit.ProfileDescription" class="form-control" />
+                <span asp-validation-for="BarberToEdit.ProfileDescription" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./BarbersList">Back To Barber List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

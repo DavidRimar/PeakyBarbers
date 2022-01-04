@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PeakyBarbers.BLL.Services.Booking
+namespace PeakyBarbers.BLL.Services.DTOs
 {
-    public class BookingModel
+    public class BookingModels
     {
         /* UI FOLDER: Booking
          * (Everyone)

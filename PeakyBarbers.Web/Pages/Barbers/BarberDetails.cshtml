@@ -1,0 +1,136 @@
+﻿@page "{id:int}"
+@model PeakyBarbers.Web.Pages.Barbers.BarberDetailsModel
+@{
+}
+    
+
+<section id="personnel" class="container text-center">
+
+
+
+    @* BARBER PROFILE *@
+    <div class="row py-3 border-bottom border-dark align-items-center">
+        <div class="col-sm-4">
+
+            <img src="~/images/@(Model.BarberDetails.FirstName)_profile.jpg" class="card-img-top profile-image" alt="@Model.BarberDetails.FirstName @Model.BarberDetails.LastName image" />
+
+        </div>
+        <div class="col-sm-8">
+
+            @{ if (@Model.BarberDetails.Gender.ToString() == "Male")
+                {
+                    <h1 class="justify-content-center">Mr. @Model.BarberDetails.FirstName @Model.BarberDetails.LastName</h1>
+                }
+                else
+                {
+                    <h1 class="justify-content-center">Ms. @Model.BarberDetails.FirstName @Model.BarberDetails.LastName</h1>
+                }
+            }
+
+            <p>@Model.BarberDetails.ProfileDescription</p>
+
+            <p>Rating: @Model.BarberDetails.OverallRating</p>
+
+            @* Yellow Stars *@
+            @for (int i = 0; i < @Model.BarberDetails.OverallRating; i++)
+            {
+                <i class="fas fa-star rating-star"></i>
+            }
+
+            @* Grey Stars *@
+            @for (int i = 0; i < 10 - @Model.BarberDetails.OverallRating; i++)
+            {
+                <i class="far fa-star"></i>
+            }
+
+
+        </div>
+
+    </div>
+
+    @* WORKING HOURS TITLE *@
+    <div class="d-flex flex-row justify-content-center my-4">
+        <h5>Working Hours</h5>
+    </div>
+
+    @* WORKING HOURS  *@
+    <div class="d-flex flex-row justify-content-center my-4">
+        <div class="col-10">
+
+            @{ if (!@Model.WorkingHours.Any())
+                {
+                    <p class="justify-content-center">Unknown working hours for @Model.BarberDetails.FirstName @Model.BarberDetails.LastName</p>
+                }
+                else
+                {
+                    <table id="working_schedule_table" class="border border-dark mx-lg-5 px-y-5">
+
+                        <thead>
+                            <tr class="flex-row py-lg-3 py-md-2 py-sm-1 justify-content-center align-items-center">
+
+                                @* Working Schedule Header Row *@
+
+
+                                <th class="col col-md-2 mx-5 border border-dark">
+                                    @Html.DisplayNameFor(model => model.WorkingHours.ToList()[0].Day)
+                                </th>
+                                <th class="col col-md-2 mx-5 border border-dark">
+                                    @Html.DisplayNameFor(model => model.WorkingHours.ToList()[0].StartTime)
+                                </th>
+                                <th class="col col-md-2 mx-5 border border-dark">
+                                    @Html.DisplayNameFor(model => model.WorkingHours.ToList()[0].EndTime)
+                                </th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            @foreach (var item in Model.WorkingHours)
+                            {
+
+                                @* Working Schedule Table Rows *@
+                                <tr class="flex-row py-lg-3 py-md-2 py-sm-1 justify-content-center align-items-center" data-id="@item.Id">
+                                    <td class="col col-md-2 mx-5 border border-dark">
+                                        @Html.DisplayFor(modelItem => item.Day)
+                                    </td>
+                                    <td class="col col-md-2 mx-5 border border-dark">
+                                        @Html.DisplayFor(modelItem => item.StartTime)
+                                    </td>
+                                    <td class="col col-md-2 mx-5 border border-dark">
+                                        @Html.DisplayFor(modelItem => item.EndTime)
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+
+                    </table>
+                }
+            }
+
+        </div>
+    </div>
+
+    @* Button  *@
+    <div class="d-flex flex-row justify-content-center my-4">
+        @if (User.Identity.IsAuthenticated && User.IsInRole("Customer"))
+        {
+            <a class="btn btn-danger mx-3 mx-sm-4 mx-lg-5" type="button" asp-area="" asp-page="/Booking/BookingList">Book An Appointment</a>
+        }
+        else if (User.Identity.IsAuthenticated && User.IsInRole("Barber"))
+        {
+            <a class="btn btn-danger mx-3 mx-sm-4 mx-lg-5" type="button" asp-area="" asp-page="/Barbers/BarberEdit" asp-route-id="@Model.BarberDetails.Id">Edit Barber Details</a>
+        }
+        else if (!User.Identity.IsAuthenticated)
+        {
+            <a class="btn btn-danger mx-3 mx-sm-4 mx-lg-5" type="button" asp-area="Identity" asp-page="/Account/LogIn">Log In To Book</a>
+        }
+
+    </div>
+
+
+</section>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script src="/lib/jquery-ajax-unobtrusive/jquery.unobtrusive-ajax.js"></script>
+}

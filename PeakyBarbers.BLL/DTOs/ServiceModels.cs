@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PeakyBarbers.BLL.Services.Services
+namespace PeakyBarbers.BLL.Services.DTOs
 {
-    public class ServiceModel
+    public class ServiceModels
     {
         /* UI FOLDER: Services
          * 1. List of Services (Barbers and Customers)
