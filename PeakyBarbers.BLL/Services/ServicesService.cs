@@ -30,13 +30,13 @@ namespace PeakyBarbers.BLL.Services
         /// <returns></returns>
         public async Task<IList<ServiceHeader>> GetAllServicesListViewAsync()
         {
-            return await DbContext.Services.Select(ServiceExpressions.ServiceHeaderSelector).ToListAsync();
+            return await DbContext.Services.Select(ServiceSelectors.ServiceHeaderSelector).ToListAsync();
         }
 
         public async Task<ServiceDelete> GetServiceToDeleteByIdAsync(int id)
         {
             return await DbContext.Services.Where(b => b.Id == id)
-                                        .Select(ServiceExpressions.ServiceDeleteSelector)
+                                        .Select(ServiceSelectors.ServiceDeleteSelector)
                                         .SingleOrDefaultAsync();
         }
 
@@ -47,7 +47,7 @@ namespace PeakyBarbers.BLL.Services
         public async Task<ServiceEdit> GetServiceToEditByIdAsync(int id)
         {
             return await DbContext.Services.Where(b => b.Id == id)
-                                          .Select(ServiceExpressions.ServiceEditSelector)
+                                          .Select(ServiceSelectors.ServiceEditSelector)
                                           .SingleOrDefaultAsync();
         }
 

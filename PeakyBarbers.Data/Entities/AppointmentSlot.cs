@@ -19,6 +19,12 @@ namespace PeakyBarbers.Data.Entities
         // NAVIGATION PROPERTY (Customer)
         public Customer? Customer { get; set; }
 
+        // FK (Service)
+        public int? ServiceId { get; set; }
+
+        // NAVIGATION PROPERTY (Service)
+        public Service Service { get; set; }
+
         public DateTime DayOfYear { get; set; }
 
         public TimeSpan StartTime { get; set; }

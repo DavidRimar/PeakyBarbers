@@ -32,7 +32,7 @@ namespace PeakyBarbers.BLL.Services
         /// <returns></returns>
         public async Task<IList<BarberHeader>> GetAllBarbersListViewAsync()
         {
-            return await DbContext.Barbers.Select(BarberExpressions.BarberHeaderSelector).OrderBy(b => b.FirstName).ToListAsync();
+            return await DbContext.Barbers.Select(BarberSelectors.BarberHeaderSelector).OrderBy(b => b.FirstName).ToListAsync();
         }
 
         /// <summary>
@@ -42,7 +42,7 @@ namespace PeakyBarbers.BLL.Services
         public async Task<BarberEdit> GetBarberEditByIdAsync(int id)
         {
             return await DbContext.Barbers.Where(b => b.Id == id)
-                                          .Select(BarberExpressions.BarberEditSelector)
+                                          .Select(BarberSelectors.BarberEditSelector)
                                           .SingleOrDefaultAsync();
         }
 
@@ -56,7 +56,7 @@ namespace PeakyBarbers.BLL.Services
         {
             // .Include(bd => bd.AllWorkingHours)
             return await DbContext.Barbers.Where(b => b.Id == id)
-                                          .Select(BarberExpressions.BarberDetailsSelector)
+                                          .Select(BarberSelectors.BarberDetailsSelector)
                                           .SingleOrDefaultAsync();
         }
 
@@ -69,7 +69,7 @@ namespace PeakyBarbers.BLL.Services
         {
             // .Include(bd => bd.AllWorkingHours)
             return await DbContext.WorkingHours.Where(b => b.BarberId == barberId)
-                                          .Select(WorkingHourExpressions.WorkingHoursSelector)
+                                          .Select(WorkingHourSelectors.WorkingHoursSelector)
                                           .ToListAsync();
         }
 

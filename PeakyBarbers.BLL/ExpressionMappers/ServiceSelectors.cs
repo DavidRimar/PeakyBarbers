@@ -5,7 +5,7 @@ using PeakyBarbers.BLL.Services.DTOs;
 
 namespace PeakyBarbers.BLL.ExpressionMappers
 {
-    public static class ServiceExpressions
+    public static class ServiceSelectors
     {
         /// <summary>
         /// ServiceDelete Selector

@@ -1,0 +1,67 @@
+@using System.Security.Claims;
+@model AppointmentListModel
+@{
+    string customerId = null;
+
+    if (User.Identity.IsAuthenticated && User.IsInRole("Customer"))
+    {
+        customerId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+    }
+}
+
+<h2>Book Your Appointment</h2>
+
+<section id="book-appointment-slot-section" class="container-fluid">
+
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <form method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="ASEdit.Id" />
+                <div class="form-group">
+                    <label asp-for="ASEdit.BarberFullName" class="control-label"></label>
+                    <input asp-for="ASEdit.BarberFullName" class="form-control" readonly="readonly" />
+                    <span asp-validation-for="ASEdit.BarberFullName" class="text-danger"></span>
+                </div>
+
+                <!-- User Id (Hidden) -->
+                <div class="form-group">
+                    <input type="hidden" asp-for="ASEdit.CustomerId" class="form-control" value=@customerId />
+                    <span asp-validation-for="ASEdit.CustomerId" class="text-danger"></span>
+                </div>
+
+                <!-- Selectable Dropdown -->
+                <div class="form-group">
+                    <label asp-for="ASEdit.ServiceId" class="control-label"></label>
+                    <select class="custom-select" asp-for="ASEdit.ServiceId" asp-items="@Model.ServiceList">
+                    </select>
+                    <span asp-validation-for="ASEdit.ServiceId" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="ASEdit.DayOfYear" class="control-label"></label>
+                    <input asp-for="ASEdit.DayOfYear" class="form-control" readonly="readonly"/>
+                    <span asp-validation-for="ASEdit.DayOfYear" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="ASEdit.StartTime" class="control-label"></label>
+                    <input asp-for="ASEdit.StartTime" class="form-control" readonly="readonly"/>
+                    <span asp-validation-for="ASEdit.StartTime" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="ASEdit.EndTime" class="control-label"></label>
+                    <input asp-for="ASEdit.EndTime" class="form-control" readonly="readonly"/>
+                    <span asp-validation-for="ASEdit.EndTime" class="text-danger"></span>
+                </div>
+                <div class="form-group justify-content-center">
+                    <input type="submit" value="Confirm Booking" class="btn btn-primary" asp-page-handler="CustomerEditAppointmentSlot" />
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+</section>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

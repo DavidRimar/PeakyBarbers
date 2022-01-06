@@ -1,15 +1,11 @@
 ﻿using PeakyBarbers.BLL.Services.DTOs;
 using PeakyBarbers.Data.Entities;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PeakyBarbers.BLL.ExpressionMappers
 {
-    public static class WorkingHourExpressions {
+    public static class WorkingHourSelectors {
 
         /// <summary>
         /// BarberHeader Selector

@@ -18,10 +18,18 @@ namespace PeakyBarbers.Data.Entities
 
         public decimal ServiceFee { get; set; }
 
+        public ICollection<AppointmentSlot> AllAppointmentSlots { get; set; }
+
         public void Configure(EntityTypeBuilder<Service> builder)
         {
             // ServicetFee decimal precision
             builder.Property(pet => pet.ServiceFee).HasColumnType("decimal(18,2)");
+
+            // Service-TO-APPOINTMENTSLOTS: 1-to-N relationship
+            builder.HasMany(s => s.AllAppointmentSlots) // this entity: COLLECTION NAVIGATION PROPERTY
+                .WithOne(appSlot => appSlot.Service) // Relationship entity: NAVIGATION PROPERTY
+                .HasForeignKey(appSlot => appSlot.ServiceId) // Relationship entity: FOREIGN KEY
+                .HasPrincipalKey(s => s.Id); // this entity: PRIMARY KEY
         }
     }
 }

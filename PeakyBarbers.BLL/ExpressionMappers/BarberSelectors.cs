@@ -1,13 +1,11 @@
 ﻿using PeakyBarbers.BLL.Services.DTOs;
 using PeakyBarbers.Data.Entities;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
 
 namespace PeakyBarbers.BLL.ExpressionMappers
 {
-    public static class BarberExpressions {
+    public static class BarberSelectors {
 
         /// <summary>
         /// BarberHeader Selector
