@@ -115,7 +115,7 @@
         {
             <a class="btn btn-danger mx-3 mx-sm-4 mx-lg-5" type="button" asp-area="" asp-page="/Booking/BookingList">Book An Appointment</a>
         }
-        else if (User.Identity.IsAuthenticated && User.IsInRole("Barber"))
+        else if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
         {
             <a class="btn btn-danger mx-3 mx-sm-4 mx-lg-5" type="button" asp-area="" asp-page="/Barbers/BarberEdit" asp-route-id="@Model.BarberDetails.Id">Edit Barber Details</a>
         }

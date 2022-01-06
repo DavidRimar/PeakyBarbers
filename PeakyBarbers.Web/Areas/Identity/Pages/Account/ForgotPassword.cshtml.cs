@@ -41,8 +41,12 @@ namespace PeakyBarbers.Web.Areas.Identity.Pages.Account
             if (ModelState.IsValid)
             {
                 var user = await _userManager.FindByEmailAsync(Input.Email);
+
                 if (user == null || !(await _userManager.IsEmailConfirmedAsync(user)))
                 {
+                    // TODO: Reveal User that no such email exists!
+                    // return RedirectToPageResult("./ForgotPassword", false);
+
                     // Don't reveal that the user does not exist or is not confirmed
                     return RedirectToPage("./ForgotPasswordConfirmation");
                 }
@@ -50,7 +54,9 @@ namespace PeakyBarbers.Web.Areas.Identity.Pages.Account
                 // For more information on how to enable account confirmation and password reset please 
                 // visit https://go.microsoft.com/fwlink/?LinkID=532713
                 var code = await _userManager.GeneratePasswordResetTokenAsync(user);
+
                 code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
+
                 var callbackUrl = Url.Page(
                     "/Account/ResetPassword",
                     pageHandler: null,

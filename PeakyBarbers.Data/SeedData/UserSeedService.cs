@@ -71,7 +71,8 @@ namespace PeakyBarbers.Data.SeedData
                     YearsOfExperience = 15,
                     UserName = "thomasshelby@example.com",
                     Email = "thomasshelby@example.com",
-                    SecurityStamp = Guid.NewGuid().ToString()
+                    SecurityStamp = Guid.NewGuid().ToString(),
+                    EmailConfirmed = true
                 };
 
                 ApplicationUser johnShelby = new Barber
@@ -87,7 +88,8 @@ namespace PeakyBarbers.Data.SeedData
                     YearsOfExperience = 5,
                     UserName = "johnshelby@example.com",
                     Email = "johnshelby@example.com",
-                    SecurityStamp = Guid.NewGuid().ToString()
+                    SecurityStamp = Guid.NewGuid().ToString(),
+                    EmailConfirmed = true
                 };
 
                 ApplicationUser arthurShelby = new Barber
@@ -103,7 +105,8 @@ namespace PeakyBarbers.Data.SeedData
                     YearsOfExperience = 11,
                     UserName = "arthurshelby@example.com",
                     Email = "arthurshelby@example.com",
-                    SecurityStamp = Guid.NewGuid().ToString()
+                    SecurityStamp = Guid.NewGuid().ToString(),
+                    EmailConfirmed = true
                 };
 
                 // create user with password
@@ -158,7 +161,8 @@ namespace PeakyBarbers.Data.SeedData
                     ModifiedDate = DateTime.Now,
                     UserName = "jamievardy@example.com",
                     Email = "jamievardy@example.com",
-                    SecurityStamp = Guid.NewGuid().ToString()
+                    SecurityStamp = Guid.NewGuid().ToString(),
+                    EmailConfirmed = true
                 };
 
                 ApplicationUser applicationUserPersonTwo = new Customer
@@ -172,7 +176,8 @@ namespace PeakyBarbers.Data.SeedData
                     ModifiedDate = DateTime.Now,
                     UserName = "jackgrealish@example.com",
                     Email = "jackgrealish@example.com",
-                    SecurityStamp = Guid.NewGuid().ToString()
+                    SecurityStamp = Guid.NewGuid().ToString(),
+                    EmailConfirmed = true
                 };
 
                 // create user with password

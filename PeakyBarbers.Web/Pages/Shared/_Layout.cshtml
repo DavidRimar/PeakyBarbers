@@ -9,6 +9,8 @@
     <link rel="stylesheet" href="~/css/site.css" />
 </head>
 <body>
+
+    <!-- Header -->
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-secondary border-bottom box-shadow mb-3">
             <div class="container">
@@ -25,7 +27,7 @@
                             <a class="nav-link text-dark" asp-area="" asp-page="/Barbers/BarberList">Barbers</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Services/ServicesList">Services</a>
+                            <a class="nav-link text-dark" asp-area="" asp-page="/Services/ServiceList">Services</a>
                         </li>
                     </ul>
 
@@ -36,17 +38,16 @@
             </div>
         </nav>
     </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
-
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2022 - PeakyBarbers.Web - <a asp-area="" asp-page="/Privacy">Privacy</a>
-        </div>
-    </footer>
+    <!-- Header END -->
+    <!-- Main -->
+    <main role="main" class="container clearfix pb-3">
+        @RenderBody()
+    </main>
+    <!-- Main END -->
+    <div style="clear:both;"></div>
+    <!-- Footer -->
+    <partial name="_FooterPartial" />
+    <!-- Footer END -->
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>

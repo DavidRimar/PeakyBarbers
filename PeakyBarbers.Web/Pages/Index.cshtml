@@ -8,7 +8,59 @@
 <div class="jumbotron jumbotron-custom jumbotron-fluid">
     <div class="container text-sm-center p-t-3">
 
-
     </div>
 </div>
 <!-- Background image -->
+
+<section id="personnel" class="container text-center">
+
+    <!-- Slogan -->
+    <div class="flex-row justify-content-center my-4">
+        <h3 class="py-2">Welcome to the Peaky Barbers!</h3>
+        <h5 class="py-2">Our top-performing barbers of the year of 2021! The best customer service provided in Black Country!</h5>
+    </div>
+
+    <!-- Barbers -->
+    <div class="row d-flex align-items-start justify-content-start">
+        @foreach (var barber in Model.BarberList)
+        {
+            <div class="col-sm-6 col-md-4 col-lg-3 mx-auto my-1">
+                <div class="card custom-card rounded align-items-center card-custom border border-dark">
+                    @* IMAGE *@
+                    <img src="~/images/@(barber.FirstName)_profile.jpg" class="card-img-top card-img-custom p-3" alt="@barber.FirstName - @barber.LastName image" />
+                    <div class="card-body custom-card-body">
+
+                        @* CARD TITLE *@
+                        <h5 class="card-title">
+                            @barber.FirstName @barber.LastName
+                        </h5>
+
+                        @* CARD Text *@
+                        <p class="card-text card-text-custom">@barber.ProfileDescription</p>
+                        <p class="card-text card-text-custom py-1 font-weight-bold">Rating: @barber.OverallRating</p>
+
+
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+
+    <!-- Barbers -->
+    @* Button  *@
+    <div class="d-flex flex-row justify-content-center my-4">
+        @if (User.Identity.IsAuthenticated && User.IsInRole("Customer"))
+        {
+            <a class="btn btn-danger mx-3 mx-sm-4 mx-lg-5" type="button" asp-area="" asp-page="/Booking/BookingList">Book An Appointment</a>
+        }
+        else if (User.Identity.IsAuthenticated && User.IsInRole("Barber"))
+        {
+            // TODO
+        }
+        else if (!User.Identity.IsAuthenticated)
+        {
+            <a class="btn btn-danger mx-3 mx-sm-4 mx-lg-5" type="button" asp-area="Identity" asp-page="/Account/LogIn">Log In To Book</a>
+        }
+    </div>
+
+</section>

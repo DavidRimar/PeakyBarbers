@@ -35,6 +35,7 @@ namespace PeakyBarbers.Web.Pages.Barbers
             {
                 return NotFound();
             }
+
             return Page();
 
         }

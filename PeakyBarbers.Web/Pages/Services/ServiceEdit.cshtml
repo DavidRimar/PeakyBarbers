@@ -1,0 +1,54 @@
+﻿@page "{id:int}"
+@model PeakyBarbers.Web.Pages.Services.ServiceEditModel
+@{
+    ViewData["Title"] = "Edit Service";
+}
+
+<h1>Edit Service Details</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <input type="hidden" asp-for="ServiceToEdit.Id" />
+
+            <div class="form-group">
+                <label asp-for="ServiceToEdit.ServiceName" class="control-label"></label>
+                <input asp-for="ServiceToEdit.ServiceName" class="form-control" readonly="readonly" />
+                <span asp-validation-for="ServiceToEdit.ServiceName" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="ServiceToEdit.ServiceFee" class="control-label"></label>
+                <input asp-for="ServiceToEdit.ServiceFee" class="form-control" />
+                <span asp-validation-for="ServiceToEdit.ServiceFee" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="ServiceToEdit.ServiceDescription" class="control-label"></label>
+                <input asp-for="ServiceToEdit.ServiceDescription" class="form-control" />
+                <span asp-validation-for="ServiceToEdit.ServiceDescription" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="ServiceToEdit.ApproximateServiceDurationInMinutes" class="control-label"></label>
+                <input asp-for="ServiceToEdit.ApproximateServiceDurationInMinutes" class="form-control" />
+                <span asp-validation-for="ServiceToEdit.ApproximateServiceDurationInMinutes" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./BarbersList">Back To Service List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
