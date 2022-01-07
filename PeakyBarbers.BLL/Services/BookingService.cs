@@ -37,7 +37,21 @@ namespace PeakyBarbers.BLL.Services
             return await appSlots.Select(AppointmentSlotSelectors.AppointmentSlotHeaderSelector).OrderBy(a => a.DayOfYear).ThenBy(a => a.StartTime).ToListAsync();
         }
 
-       
+        public async Task<IList<AppointmentSlotHeader>> GetAppointmentSlotsForUser(int userId, UserRoles userRole)
+        {
+            // get appointment slots for a user Id
+            if (userRole == UserRoles.Barber) { 
+                var appSlots = DbContext.AppointmentSlots.Where(app => app.BarberId == userId);
+                return await appSlots.Select(AppointmentSlotSelectors.AppointmentSlotHeaderSelector).OrderBy(a => a.DayOfYear).ThenBy(a => a.StartTime).ToListAsync();
+            }
+            else {
+                var appSlots = DbContext.AppointmentSlots.Where(app => app.CustomerId == userId);
+                return await appSlots.Select(AppointmentSlotSelectors.AppointmentSlotHeaderSelector).OrderBy(a => a.DayOfYear).ThenBy(a => a.StartTime).ToListAsync();
+            };
+
+        }
+
+
 
         /// <summary>
         /// Gets All Appointment Slots for the current week.

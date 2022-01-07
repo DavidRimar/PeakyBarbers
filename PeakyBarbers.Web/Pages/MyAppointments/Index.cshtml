@@ -1,0 +1,98 @@
+﻿@page
+@model PeakyBarbers.Web.Pages.MyAppointments.IndexModel
+@{
+}
+
+<h1>My Appointments</h1>
+
+<section id="my_appointments">
+    
+
+    <div class="container text-center">
+
+        <div class="row">
+            <div class="col-sm-6 border-dark border-right">
+
+                <h2 class="flex-row justify-content-around mb-3">Historic Appointments</h2>
+
+                @if (Model.IsThereExpiredAppSlot)
+                {
+
+                    @foreach (var appSlot in Model.AllAppointmentSlotHeaders)
+                    {
+                        if (appSlot.BookingStatus == Data.Enums.BookingStatus.Expired)
+                        {
+                            <div class="row mx-1 my-2 rounded d-flex align-items-center justify-content-around border border-dark">
+
+                                <div class="col-2">
+                                    <p class="p-2">@appSlot.DayOfYear</p>
+                                </div>
+                                <div class="col-2">
+                                    <p class="p-2">@appSlot.StartTime</p>
+                                </div>
+                                <div class="col-2">
+                                    <p class="p-2">@appSlot.EndTime</p>
+                                </div>
+                                <div class="col-2">
+                                    <p class="p-2">@appSlot.BarberFullName</p>
+                                </div>
+                                <div class="col-2">
+                                    <p class="p-2">@appSlot.BookingStatus</p>
+                                </div>
+                            </div>
+                        }
+                    }
+                }
+                else
+                {
+                    <div class="row d-flex align-items-center justify-content-center py-2">
+                        <h5>No Historical Appointments.</h5>
+                    </div>
+                }
+
+            </div>
+            <div class="col-sm-6 border-dark">
+
+                <h2 class="flex-row justify-content-around mb-3">Upcoming Appointments</h2>
+
+                @if (Model.IsThereAvailableAppSlot)
+                {
+
+                    @foreach (var appSlot in Model.AllAppointmentSlotHeaders)
+                    {
+                        if (appSlot.BookingStatus == Data.Enums.BookingStatus.Available)
+                        {
+                            <div class="row mx-1 my-2 rounded d-flex align-items-center justify-content-around border border-dark">
+
+                                <div class="col-2">
+                                    <p class="p-2">@appSlot.DayOfYear</p>
+                                </div>
+                                <div class="col-2">
+                                    <p class="p-2">@appSlot.StartTime</p>
+                                </div>
+                                <div class="col-2">
+                                    <p class="p-2">@appSlot.EndTime</p>
+                                </div>
+                                <div class="col-2">
+                                    <p class="p-2">@appSlot.BarberFullName</p>
+                                </div>
+                                <div class="col-2">
+                                    <p class="p-2">@appSlot.BookingStatus</p>
+                                </div>
+                            </div>
+                        }
+                    }
+                }
+                else
+                {
+                    <div class="row d-flex align-items-center justify-content-center py-2">
+                        <h4>No Upcoming Appointments.</h4>
+                    </div>
+                }
+
+            </div>
+        </div>
+        
+
+    </div>
+</section>

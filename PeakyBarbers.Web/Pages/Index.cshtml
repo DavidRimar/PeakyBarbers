@@ -27,7 +27,15 @@
             <div class="col-sm-6 col-md-4 col-lg-3 mx-auto my-1">
                 <div class="card custom-card rounded align-items-center card-custom border border-dark">
                     @* IMAGE *@
-                    <img src="~/images/@(barber.FirstName)_profile.jpg" class="card-img-top card-img-custom p-3" alt="@barber.FirstName - @barber.LastName image" />
+                    @* IMAGE *@
+                    @if (Model.PeakyBarberNames.Contains(barber.FirstName + " " + barber.LastName))
+                    {
+                        <img src="~/images/@(barber.FirstName)_profile.jpg" class="card-img-top card-img-custom pt-3" alt="@barber.FirstName - @barber.LastName image" />
+                    }
+                    else
+                    {
+                        <img src="~/images/anonymous-mask.png" class="card-img-top card-img-custom pt-3" alt="@barber.FirstName - @barber.LastName image" />
+                    }
                     <div class="card-body custom-card-body">
 
                         @* CARD TITLE *@
@@ -36,7 +44,7 @@
                         </h5>
 
                         @* CARD Text *@
-                        <p class="card-text card-text-custom">@barber.ProfileDescription</p>
+                        <p class="card-text card-text-custom card-text-profile">@barber.ProfileDescription</p>
                         <p class="card-text card-text-custom py-1 font-weight-bold">Rating: @barber.OverallRating</p>
 
 

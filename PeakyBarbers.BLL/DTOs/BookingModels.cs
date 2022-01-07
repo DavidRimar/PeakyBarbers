@@ -33,14 +33,20 @@ namespace PeakyBarbers.BLL.Services.DTOs
 
         [Required]
         [Display(Name = "Day")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}")]
         public DateTime DayOfYear { get; set; }
 
         [Required]
         [Display(Name = "Start Time")]
+        [DataType(DataType.Time)]
+        [DisplayFormat(DataFormatString = @"{0:hh\:mm}")]
         public TimeSpan StartTime { get; set; }
 
         [Required]
         [Display(Name = "End Time")]
+        [DataType(DataType.Time)]
+        [DisplayFormat(DataFormatString = @"{0:hh\:mm}")]
         public TimeSpan EndTime { get; set; }
 
         public BookingStatus BookingStatus { get; set; }

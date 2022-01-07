@@ -12,6 +12,8 @@ namespace PeakyBarbers.Web.Pages
         public IReadOnlyCollection<BarberHeader> BarberList { get; set; }
         public BarbersService BarbersService { get; }
 
+        public IList<string> PeakyBarberNames { get; set; }
+
         // CONSTRUCTOR
         public IndexModel(BarbersService barbersService)
         {
@@ -21,6 +23,18 @@ namespace PeakyBarbers.Web.Pages
         public async Task OnGetAsync()
         {
             BarberList = (IReadOnlyCollection<BarberHeader>)await BarbersService.GetAllBarbersListViewAsync();
+
+            SetPeakyBarberNames();
+        }
+
+        private void SetPeakyBarberNames()
+        {
+            PeakyBarberNames = new List<string>
+            {
+                "Thomas Shelby",
+                "Arthur Shelby",
+                "John Shelby"
+            };
         }
     }
 }

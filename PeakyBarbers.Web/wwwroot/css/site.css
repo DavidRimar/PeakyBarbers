@@ -102,3 +102,7 @@ body {
     position: absolute;
     height: 250px;
 }
+
+.card-text-profile {
+    min-height: 96px;
+}
