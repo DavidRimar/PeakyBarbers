@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using PeakyBarbers.BLL.ExpressionMappers;
 using PeakyBarbers.BLL.Services.DTOs;
@@ -7,20 +8,24 @@ using PeakyBarbers.Data.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace PeakyBarbers.BLL.Services
 {
     public class BarbersService
     {
+        
+
         // PROPERTIES
         public PeakyBarbersDbContext DbContext { get; }
 
+        private readonly UserManager<ApplicationUser> _userManager;
+
         // CONSTRUCTOR
-        public BarbersService(PeakyBarbersDbContext dbContext)
+        public BarbersService(PeakyBarbersDbContext dbContext, UserManager<ApplicationUser> userManager)
         {
             DbContext = dbContext;
+            _userManager = userManager;
         }
 
         
@@ -35,6 +40,7 @@ namespace PeakyBarbers.BLL.Services
             return await DbContext.Barbers.Select(BarberSelectors.BarberHeaderSelector).OrderBy(b => b.FirstName).ToListAsync();
         }
 
+        
         /// <summary>
         /// Gets a Barber by ID for the edit page.
         /// </summary>
@@ -82,5 +88,29 @@ namespace PeakyBarbers.BLL.Services
 
             await DbContext.SaveChangesAsync();
         }
+
+        public async Task<bool> PostCreateBarber(BarberCreate barberToCreate)
+        {
+            Barber newBarber = new Barber
+            {
+                FirstName = barberToCreate.FirstName,
+                LastName = barberToCreate.FirstName,
+                ProfileDescription = barberToCreate.ProfileDescription,
+                OverallRating = barberToCreate.OverallRating,
+                Gender = barberToCreate.Gender,
+                YearsOfExperience = barberToCreate.YearsOfExperience,
+                UserName = barberToCreate.Email,
+                Email = barberToCreate.Email,
+                CreationDate = DateTime.Now,
+                ModifiedDate = DateTime.Now
+            };
+
+            var result = await _userManager.CreateAsync(newBarber, barberToCreate.Password);
+
+            await _userManager.AddToRoleAsync(newBarber, "Barber");
+
+            return true;
+        }
+
     }
 }

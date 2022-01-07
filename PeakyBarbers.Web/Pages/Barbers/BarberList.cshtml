@@ -1,7 +1,13 @@
 ﻿@page
 @model PeakyBarbers.Web.Pages.Barbers.BarberListModel
 @{
+    ViewData["Title"] = "Barber List";
 }
+
+<p>
+    @* TODO: Restrict for Admin Barbers*@
+    <a asp-page="BarberCreate">Create New Barber</a>
+</p>
 
 <section id="personnel">
     <h1 class="display-4 personnel-text">Our Peaky Barbers</h1>

@@ -1,7 +1,13 @@
 ﻿@page
 @model PeakyBarbers.Web.Pages.Booking.AppointmentListModel
 @{
+    ViewData["Title"] = "Appointment List";
 }
+
+<p>
+    @* TODO: Restrict for Admin Barbers*@
+    <a asp-page="AppointmentCreate">Create New Appointment</a>
+</p>
 
 <section id="appointment_slots_section" class="container-fluid text-center">
 
@@ -150,8 +156,8 @@
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
     <script>
-        //$(document).ready(function () {
-        //    $("#app-slots-table").dataTable();
-        //});
+            //$(document).ready(function () {
+            //    $("#app-slots-table").dataTable();
+            //});
     </script>
 }

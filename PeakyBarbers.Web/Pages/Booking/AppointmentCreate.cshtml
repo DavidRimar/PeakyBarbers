@@ -1,0 +1,65 @@
+﻿@page
+@using System.Security.Claims;
+@model PeakyBarbers.Web.Pages.Services.AppointmentCreateModel
+@{
+    ViewData["Title"] = "Create Appointment";
+
+    string barberId = null;
+
+    if (User.Identity.IsAuthenticated && User.IsInRole("Barber"))
+    {
+        barberId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+    }
+}
+
+<h2>Create New Appointment</h2>
+<hr />
+
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <!-- User Id (Hidden) -->
+            <div class="form-group">
+                <input type="hidden" asp-for="AppointmentToCreate.BarberId" class="form-control" value=@barberId />
+                <span asp-validation-for="AppointmentToCreate.BarberId" class="text-danger"></span>
+            </div>
+
+            <!-- Barber Name == The User (Barber) -->
+
+            <div class="form-group">
+                <label asp-for="AppointmentToCreate.BarberId" class="control-label"></label>
+                <input asp-for="AppointmentToCreate.BarberId" class="form-control" readonly="readonly" value=@barberId />
+                <span asp-validation-for="AppointmentToCreate.BarberId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AppointmentToCreate.DayOfYear" class="control-label"></label>
+                <input asp-for="AppointmentToCreate.DayOfYear" class="form-control" />
+                <span asp-validation-for="AppointmentToCreate.DayOfYear" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AppointmentToCreate.StartTime" class="control-label"></label>
+                <input asp-for="AppointmentToCreate.StartTime" class="form-control" />
+                <span asp-validation-for="AppointmentToCreate.StartTime" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AppointmentToCreate.EndTime" class="control-label"></label>
+                <input asp-for="AppointmentToCreate.EndTime" class="form-control" />
+                <span asp-validation-for="AppointmentToCreate.EndTime" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="ServiceList">Back to Service List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

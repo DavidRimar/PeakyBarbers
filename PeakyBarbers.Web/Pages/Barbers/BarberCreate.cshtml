@@ -1,0 +1,69 @@
+﻿@page
+@model PeakyBarbers.Web.Pages.Services.BarberCreateModel
+
+@{
+    ViewData["Title"] = "Create Service";
+}
+
+<h1>Create New Service</h1>
+<hr />
+
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="BarberToCreate.FirstName" class="control-label"></label>
+                <input asp-for="BarberToCreate.FirstName" class="form-control" />
+                <span asp-validation-for="BarberToCreate.FirstName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BarberToCreate.LastName" class="control-label"></label>
+                <input asp-for="BarberToCreate.LastName" class="form-control" />
+                <span asp-validation-for="BarberToCreate.LastName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BarberToCreate.Gender" class="control-label"></label>
+                <input asp-for="BarberToCreate.Gender" class="form-control" />
+                <span asp-validation-for="BarberToCreate.Gender" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BarberToCreate.ProfileDescription" class="control-label"></label>
+                <input asp-for="BarberToCreate.ProfileDescription" class="form-control" />
+                <span asp-validation-for="BarberToCreate.ProfileDescription" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BarberToCreate.OverallRating" class="control-label"></label>
+                <input asp-for="BarberToCreate.OverallRating" class="form-control" />
+                <span asp-validation-for="BarberToCreate.OverallRating" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BarberToCreate.YearsOfExperience" class="control-label"></label>
+                <input asp-for="BarberToCreate.YearsOfExperience" class="form-control" />
+                <span asp-validation-for="BarberToCreate.YearsOfExperience" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BarberToCreate.Email" class="control-label"></label>
+                <input asp-for="BarberToCreate.Email" class="form-control" />
+                <span asp-validation-for="BarberToCreate.Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BarberToCreate.Password" class="control-label"></label>
+                <input asp-for="BarberToCreate.Password" class="form-control" />
+                <span asp-validation-for="BarberToCreate.Password" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="ServiceList">Back to Service List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

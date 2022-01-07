@@ -37,6 +37,8 @@ namespace PeakyBarbers.BLL.Services
             return await appSlots.Select(AppointmentSlotSelectors.AppointmentSlotHeaderSelector).OrderBy(a => a.DayOfYear).ThenBy(a => a.StartTime).ToListAsync();
         }
 
+       
+
         /// <summary>
         /// Gets All Appointment Slots for the current week.
         /// </summary>
@@ -105,6 +107,26 @@ namespace PeakyBarbers.BLL.Services
             DbContext.SaveChangesAsync();
 
             return id;
+        }
+
+        public async Task<bool> PostCreateAppointment(AppointmentSlotCreate appointmentToCreate)
+        {
+            AppointmentSlot newAppointment = new AppointmentSlot
+            {
+                BarberId = appointmentToCreate.BarberId,
+                DayOfYear = appointmentToCreate.DayOfYear,
+                StartTime = appointmentToCreate.StartTime,
+                EndTime = appointmentToCreate.EndTime,
+                CreationDate = DateTime.Now,
+                ModifiedDate = DateTime.Now,
+                BookingStatus = BookingStatus.Available
+            };
+
+            DbContext.Add(newAppointment);
+
+            await DbContext.SaveChangesAsync();
+
+            return true;
         }
 
     }

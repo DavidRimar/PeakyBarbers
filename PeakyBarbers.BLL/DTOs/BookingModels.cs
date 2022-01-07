@@ -47,6 +47,10 @@ namespace PeakyBarbers.BLL.Services.DTOs
     }
 
     // appointment slot create
+    // TODO: DayOfYear to show accuracy only to the day
+    // TODO: DayOfYear >= Today
+    // TODO: StartTime < EndTime
+    // TODO: No Overlapping StartTime, EndTime, Day Cominbation
     public class AppointmentSlotCreate
     {
 
@@ -62,22 +66,26 @@ namespace PeakyBarbers.BLL.Services.DTOs
         /*Just need the BarberId from a selectable dropdown */
 
         [Required]
+        [DataType(DataType.Date)]
         [Display(Name = "Day")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:yyyy/MM/dd}")]
         public DateTime DayOfYear { get; set; }
 
         [Required]
+        [DataType(DataType.Time)]
+        [DisplayFormat(DataFormatString = @"{0:hh\:mm}")]
         [Display(Name = "Start Time")]
         public TimeSpan StartTime { get; set; }
 
         [Required]
+        [DataType(DataType.Time)]
+        [DisplayFormat(DataFormatString = @"{0:hh\:mm}")]
         [Display(Name = "End Time")]
         public TimeSpan EndTime { get; set; }
 
         public DateTime CreateDate { get; set; }
 
         public DateTime ModifiedDate { get; set; }
-
-        public BookingStatus BookingStatus { get; set; }
     }
 
     // appointment slot customer edit
@@ -107,6 +115,7 @@ namespace PeakyBarbers.BLL.Services.DTOs
         [Display(Name = "Day")]
         public DateTime DayOfYear { get; set; }
 
+        // TODO: StartTime < EndTime
         [Required]
         [Display(Name = "Start Time")]
         public TimeSpan StartTime { get; set; }
