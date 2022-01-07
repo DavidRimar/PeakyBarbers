@@ -219,4 +219,9 @@ namespace PeakyBarbers.BLL.Services.DTOs
         public TimeSpan EndTime { get; set; }
         
     }
+
+    public class BarberFullName
+    {
+        public string barberFullName { get; set; }
+    }
 }

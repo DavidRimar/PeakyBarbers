@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -30,6 +31,9 @@ namespace PeakyBarbers.Web.Pages.Booking
         // All Services as SelectItems
         public IList<SelectListItem> ServiceList { get; set; }
 
+        // All Barbers as SelectItems
+        public IList<SelectListItem> BarberList { get; set; }
+
         // Previous, Current and Next Week Start Days to be used as asp-routes for navigation
         public string PreviousWeekStartDayString { get; set; }
         public string CurrentWeekStartDayString { get; set; }
@@ -37,6 +41,9 @@ namespace PeakyBarbers.Web.Pages.Booking
 
         // Current Week String To Display on Page
         public string CurrentWeekString { get; set; }
+
+        [BindProperty(SupportsGet = true)]
+        public string SelectedBarberFullName { get; set; }
 
 
         // CONSTRUCTOR
@@ -55,6 +62,15 @@ namespace PeakyBarbers.Web.Pages.Booking
 
             // get all appointment slots for this period
             AllAppointmentSlotHeaders = await BookingService.GetAppointmentSlotsForCurrentWeekAsync(CurrentWeekStartDayString);
+
+            // filter by barber
+            if (!string.IsNullOrEmpty(SelectedBarberFullName))
+            {
+                AllAppointmentSlotHeaders = AllAppointmentSlotHeaders.Where(f => f.BarberFullName == SelectedBarberFullName).ToList();
+            }
+
+            // set BarberList from appointments
+            SetBarberListItems();
 
             return Page();
 
@@ -75,6 +91,15 @@ namespace PeakyBarbers.Web.Pages.Booking
             SetServiceListItems();
 
             return Partial("_BookAppointment", this);
+
+        }
+
+        public async Task<IActionResult> OnPostFilterBarbersAsync()
+        {
+
+            AllAppointmentSlotHeaders.Where(f => f.BarberFullName != SelectedBarberFullName);
+
+            return Page();
 
         }
 
@@ -193,6 +218,19 @@ namespace PeakyBarbers.Web.Pages.Booking
                 ServiceList.Add(new SelectListItem { Text = ServiceCollection[i].ServiceName, Value = ServiceCollection[i].Id.ToString() });
             }
 
+        }
+
+        private async void SetBarberListItems()
+        {
+            IList<BarberFullName> barberNames = await BookingService.GetBarberFullNamesAsync();
+
+            BarberList = new List<SelectListItem>() { };
+
+            for (int i = 0; i < barberNames.Count; i++)
+            {
+
+                BarberList.Add(new SelectListItem { Text = barberNames[i].barberFullName, Value = barberNames[i].barberFullName });
+            }
         }
     }
 }

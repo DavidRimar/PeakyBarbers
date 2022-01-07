@@ -61,5 +61,10 @@ namespace PeakyBarbers.BLL.ExpressionMappers
             EndTime = a.EndTime
             
         };
+
+        public static Expression<Func<Barber, BarberFullName>> BarberFullNameSelector = b => new BarberFullName
+        {
+            barberFullName = b.FirstName + " " + b.LastName
+        };
     }
 }

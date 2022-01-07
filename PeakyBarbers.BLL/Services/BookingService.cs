@@ -70,6 +70,11 @@ namespace PeakyBarbers.BLL.Services
             return await DbContext.Services.Select(ServiceSelectors.ServiceHeaderSelector).ToListAsync();
         }
 
+        public async Task<IList<BarberFullName>> GetBarberFullNamesAsync()
+        {
+            return await DbContext.Barbers.Select(BarberSelectors.BarberFullNameSelector).ToListAsync();
+        }
+
         // POST METHODs
         public async Task<int> PostAppointmentSlotCustomerUpdateByIdAsync(AppointmentSlotCustomerEdit asPost)
         {
