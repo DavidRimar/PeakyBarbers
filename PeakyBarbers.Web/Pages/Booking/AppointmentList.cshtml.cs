@@ -152,14 +152,15 @@ namespace PeakyBarbers.Web.Pages.Booking
 
         }
 
-        // DELETE
-        public IActionResult OnPost(int id)
+        // DELETE (if done with Ajax withour redirecting)
+        /*
+        public async Task<IActionResult> OnPost(int id)
         {
 
             System.Threading.Thread.Sleep(8000);
 
             // use Booking Service to delete
-            BookingService.PostDeleteAppointmentSlot(id);
+            _ = await BookingService.PostDeleteAppointmentSlot(id);
 
             // client-side page rerendering with AJAX
             return new JsonResult(new { url = "reload" });
@@ -169,6 +170,7 @@ namespace PeakyBarbers.Web.Pages.Booking
             // return RedirectToPage("./BookingList");
 
         }
+        */
 
         // PRIVATE METHODS
         private void SetCurrentWeekString()

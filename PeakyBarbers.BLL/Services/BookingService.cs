@@ -77,6 +77,13 @@ namespace PeakyBarbers.BLL.Services
             return await appSlots.Select(AppointmentSlotSelectors.AppointmentSlotCustomerEditSelector).SingleOrDefaultAsync();
         }
 
+        public async Task<AppointmentSlotDelete> GetAppointmentToDeleteByIdAsync(int id)
+        {
+            return await DbContext.AppointmentSlots.Where(a => a.Id == id)
+                                        .Select(AppointmentSlotSelectors.AppointmentSlotDeleteSelector)
+                                        .SingleOrDefaultAsync();
+        }
+
         /// <summary>
         /// Gets Services.
         /// </summary>
@@ -113,12 +120,12 @@ namespace PeakyBarbers.BLL.Services
             return asT.Id;
         }
 
-        public int PostDeleteAppointmentSlot(int id)
+        public async Task<int> PostDeleteAppointmentSlot(int id)
         {
 
             // remove by Id
             DbContext.AppointmentSlots.Remove(new AppointmentSlot { Id = id });
-            DbContext.SaveChangesAsync();
+            await DbContext.SaveChangesAsync();
 
             return id;
         }

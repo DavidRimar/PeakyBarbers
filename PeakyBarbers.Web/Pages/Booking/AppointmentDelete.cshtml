@@ -1,0 +1,43 @@
+﻿@page "{id:int}"
+@model PeakyBarbers.Web.Pages.Booking.AppointmentDeleteModel
+@{
+}
+
+<h1>Delete Appointment</h1>
+
+<div>
+    <hr />
+    <dl class="flex-row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.AppSlotToDelete.BarberFullName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.AppSlotToDelete.BarberFullName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.AppSlotToDelete.DayOfYear)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.AppSlotToDelete.DayOfYear)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.AppSlotToDelete.StartTime)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.AppSlotToDelete.StartTime)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.AppSlotToDelete.EndTime)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.AppSlotToDelete.EndTime)
+        </dd>
+    </dl>
+
+    <form method="post">
+        <input type="hidden" asp-for="AppSlotToDelete.Id" />
+        <input type="submit" value="Delete" class="btn btn-danger" /> |
+        <a asp-page="./AppointmentList">Back to Appointment List</a>
+    </form>
+
+</div>

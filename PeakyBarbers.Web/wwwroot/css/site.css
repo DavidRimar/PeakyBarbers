@@ -106,3 +106,8 @@ body {
 .card-text-profile {
     min-height: 96px;
 }
+
+.table {
+    margin: auto;
+    width: 70% !important;
+}

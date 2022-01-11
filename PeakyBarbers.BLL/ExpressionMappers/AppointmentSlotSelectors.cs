@@ -14,6 +14,7 @@ namespace PeakyBarbers.BLL.ExpressionMappers
         public static Expression<Func<AppointmentSlot, AppointmentSlotHeader>> AppointmentSlotHeaderSelector = a => new AppointmentSlotHeader
         {
             Id = a.Id,
+            BarberId = a.BarberId,
             BarberFullName = a.Barber.FirstName + " " + a.Barber.LastName,
             DayOfYear = a.DayOfYear,
             StartTime = a.StartTime,
@@ -33,6 +34,19 @@ namespace PeakyBarbers.BLL.ExpressionMappers
             DayOfYear = a.DayOfYear,
             StartTime = a.StartTime,
             EndTime = a.EndTime
+        };
+
+        /// <summary>
+        /// AppointmentSlotCustomerEdit Selector
+        /// </summary>
+        public static Expression<Func<AppointmentSlot, AppointmentSlotDelete>> AppointmentSlotDeleteSelector = a => new AppointmentSlotDelete
+        {
+            Id = a.Id,
+            BarberFullName = a.Barber.FirstName + " " + a.Barber.LastName,
+            DayOfYear = a.DayOfYear,
+            StartTime = a.StartTime,
+            EndTime = a.EndTime,
+            BookingStatus = a.BookingStatus
         };
 
     }
