@@ -68,9 +68,14 @@ namespace PeakyBarbers.BLL.Services.DTOs
         public int Id { get; set; }
 
         [Required]
-        [Display(Name = "Barber")]
+        [Display(Name = "Barber Id")]
         public int BarberId { get; set; }
-        /*Just need the BarberId from a selectable dropdown */
+        /* Admin - need the BarberId from a selectable dropdown */
+        /* Barber - show the Barber name disabled field */
+
+        [Required]
+        [Display(Name = "Name")]
+        public string BarberFullName { get; set; }
 
         [Required]
         [DataType(DataType.Date)]

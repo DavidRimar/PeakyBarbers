@@ -1,0 +1,34 @@
+﻿/* XS */
+@media screen and (max-width: 576px) {
+    .app-slot-table {
+        width: 300px;
+    }
+}
+
+/* SM */
+@media screen and (max-width: 768px) {
+    .app-slot-table {
+        width: 450px;
+    }
+}
+
+/* MD */
+@media screen and (max-width: 992px) {
+    .app-slot-table {
+        width: 650px;
+    }
+}
+
+/* LG */
+@media screen and (max-width: 1200px) {
+    .app-slot-table {
+        width: 800px;
+    }
+}
+
+/* XL */
+@media screen and (min-width: 1201px) {
+    .app-slot-table {
+        width: 900px;
+    }
+}

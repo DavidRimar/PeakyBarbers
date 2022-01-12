@@ -10,7 +10,7 @@ using PeakyBarbers.BLL.Services.DTOs;
 
 namespace PeakyBarbers.Web.Pages.Booking
 {
-    [Authorize(Roles = "Barber")]
+    // [Authorize(Roles = "Barber")]
     public class AppointmentDeleteModel : PageModel
     {
         public BookingService BookingService { get; }

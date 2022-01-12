@@ -5,6 +5,7 @@ using PeakyBarbers.Data.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace PeakyBarbers.Data.SeedData
@@ -128,6 +129,24 @@ namespace PeakyBarbers.Data.SeedData
                     var code3 = await userManager.GenerateEmailConfirmationTokenAsync(arthurShelby);
                     var result3 = await userManager.ConfirmEmailAsync(arthurShelby, code3);
                 }
+
+                // add claims
+                var claims1 = new List<Claim>() {
+                    new Claim(ClaimTypes.GivenName, tomShelby.FirstName),
+                    new Claim(ClaimTypes.Surname, tomShelby.LastName)
+                };
+                var claims2 = new List<Claim>() {
+                    new Claim(ClaimTypes.GivenName, johnShelby.FirstName),
+                    new Claim(ClaimTypes.Surname, johnShelby.LastName)
+                };
+                var claims3 = new List<Claim>() {
+                    new Claim(ClaimTypes.GivenName, arthurShelby.FirstName),
+                    new Claim(ClaimTypes.Surname, arthurShelby.LastName)
+                };
+
+                var claimsResult1 = await userManager.AddClaimsAsync(tomShelby, claims1);
+                var claimsResult2 = await userManager.AddClaimsAsync(johnShelby, claims1);
+                var claimsResult3 = await userManager.AddClaimsAsync(arthurShelby, claims1);
 
                 // add role to user
                 var addRoleResultOne = await userManager.AddToRoleAsync(tomShelby, role);

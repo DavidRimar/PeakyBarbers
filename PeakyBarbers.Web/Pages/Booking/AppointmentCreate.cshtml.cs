@@ -8,7 +8,7 @@ using PeakyBarbers.BLL.Services.DTOs;
 namespace PeakyBarbers.Web.Pages.Services
 {
 
-    [Authorize(Roles = "Barber")]
+    // [Authorize(Roles = "Barber")]
     public class AppointmentCreateModel : PageModel
     {
         // PROPERTIES

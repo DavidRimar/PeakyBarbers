@@ -8,9 +8,11 @@ namespace PeakyBarbers.Web.Areas.Identity.Pages.Account
 {
     public class AccessDeniedModel : PageModel
     {
-        public void OnGet()
-        {
 
+        public string CustomMessage { get; set; }
+        public void OnGet(string message)
+        {
+            CustomMessage = message;
         }
     }
 }

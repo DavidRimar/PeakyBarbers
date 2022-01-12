@@ -5,10 +5,18 @@
     ViewData["Title"] = "Create Appointment";
 
     string barberId = null;
+    string barberEmail = null;
+    string barberGivenName = null;
+    string barberSurname = null;
+    string barberFullName = null;
 
     if (User.Identity.IsAuthenticated && User.IsInRole("Barber"))
     {
         barberId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+        barberEmail = User.FindFirst(ClaimTypes.Name).Value;
+        barberGivenName = User.FindFirst(ClaimTypes.GivenName).Value;
+        barberSurname = User.FindFirst(ClaimTypes.Surname).Value;
+        barberFullName = barberGivenName + " " + barberSurname;
     }
 }
 
@@ -30,9 +38,9 @@
             <!-- Barber Name == The User (Barber) -->
 
             <div class="form-group">
-                <label asp-for="AppointmentToCreate.BarberId" class="control-label"></label>
-                <input asp-for="AppointmentToCreate.BarberId" class="form-control" readonly="readonly" value=@barberId />
-                <span asp-validation-for="AppointmentToCreate.BarberId" class="text-danger"></span>
+                <label class="control-label">Email</label>
+                <input class="form-control" readonly="readonly" value="@barberFullName" />
+                <span class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="AppointmentToCreate.DayOfYear" class="control-label"></label>

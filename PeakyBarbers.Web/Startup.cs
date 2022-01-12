@@ -14,6 +14,7 @@ using PeakyBarbers.Data.SeedData;
 using PeakyBarbers.Web.Settings;
 using PeakyBarbers.Web.WebServices;
 using System;
+using System.Security.Claims;
 
 namespace PeakyBarbers.Web
 {
@@ -70,15 +71,29 @@ namespace PeakyBarbers.Web
             services.Configure<MailSettings>(Configuration.GetSection("MailSettings"));
             services.AddTransient<IEmailSender, EmailSender>();
 
-            // RAZOR PAGES
-            services.AddRazorPages();
-
             // AUTHENTICATION: GOOGLE
-            services.AddAuthentication().AddGoogle( options => {
+            services.AddAuthentication().AddGoogle(options => {
                 IConfigurationSection googleAuth = Configuration.GetSection("Authentication:Google");
                 options.ClientId = googleAuth["ClientId"];
                 options.ClientSecret = googleAuth["ClientSecret"];
             });
+
+            // AUTHORISATION
+            services.AddAuthorization(options => {
+                options.AddPolicy("Barber", policy => policy.RequireClaim(ClaimTypes.Role, "Barber"));
+                options.AddPolicy("RequireBarberRole", policy => policy.RequireRole("Barber"));
+
+                options.AddPolicy("Admin", policy => policy.RequireClaim(ClaimTypes.Role, "Admin"));
+                options.AddPolicy("RequireAdminRole", policy => policy.RequireRole("Admin"));
+            });
+
+            // RAZOR PAGES
+            services.AddRazorPages(options => {
+                options.Conventions.AuthorizePage("/Booking/AppointmentCreate", "RequireBarberRole"); // Both non-Admin and Admin Barbers create for themselves
+                options.Conventions.AuthorizePage("/Booking/AppointmentDelete", "RequireBarberRole"); // non-Admin Barber deletes his own, Admin deltes for all 
+            });
+
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

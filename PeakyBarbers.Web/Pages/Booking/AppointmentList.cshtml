@@ -5,6 +5,7 @@
     ViewData["Title"] = "Appointment List";
 
     string barberId = null;
+    
 
     if (User.Identity.IsAuthenticated && User.IsInRole("Barber"))
     {
@@ -60,10 +61,10 @@
             <!-- Appointments Table  -->
             @if (Model.AllAppointmentSlotHeaders.Any())
             {
-                <table id="app-slots-table" class="table table-responsive border border-dark px-y-5">
+                <table id="app-slots-table" class="table table-responsive border border-dark table-fit">
 
                     <thead>
-                        <tr class="flex-row py-lg-3 py-md-2 py-sm-1 border-bottom border-dark" style="height: 35px;">
+                        <tr class="flex-row py-lg-3 py-md-2 py-sm-1 border-bottom border-secondary" style="height: 33px;">
 
                             @* Appointment Slot Header Row *@
                             <th class="col-3 mx-5">
@@ -100,7 +101,7 @@
                         {
 
                             @* Working Schedule Table Rows *@
-                            <tr class="flex-row p-lg-3 p-md-2 p-sm-1 border-bottom border-secondary" style="height: 43px;" data-id="@appS.Id">
+                            <tr class="flex-row p-lg-3 p-md-2 p-sm-1 border-bottom border-secondary" style="height: 37px;" data-id="@appS.Id">
                                 <td class="col-3 mx-5">
                                     @Html.DisplayFor(modelItem => appS.BarberFullName)
                                 </td>
@@ -116,53 +117,78 @@
 
 
                                 @* Customer EDIT button *@
-                                @if (User.IsInRole("Customer"))
+                                @if (User.IsInRole("Customer") || !User.Identity.IsAuthenticated)
                                 {
                                     <td class="col-2 mx-5">
 
-                                        <!-- Button trigger modal -->
-                                        @{ if (appS.BookingStatus == Data.Enums.BookingStatus.Available)
-                                            {
-                                                <button class="btn btn-success book-button" data-id="@appS.Id" data-toggle="modal" data-target="#bookModal">
-                                                    BOOK
-                                                </button>
-                                            }
-                                            else if (appS.BookingStatus == Data.Enums.BookingStatus.Booked)
-                                            {
-                                                <button class="btn btn-danger disabled">
-                                                    BOOKED
-                                                </button>
-                                            }
-                                            else if (appS.BookingStatus == Data.Enums.BookingStatus.Expired)
-                                            {
-                                                <button class="btn btn-secondary disabled">
-                                                    EXPIRED
-                                                </button>
-                                            }
+                                    <!-- Button trigger modal -->
+                                    @if (appS.BookingStatus == Data.Enums.BookingStatus.Available)
+                                    {
+                                        @if (User.IsInRole("Customer"))
+                                        {
+                                            <button class="btn btn-success book-button" data-id="@appS.Id" data-toggle="modal" data-target="#bookModal">
+                                                BOOK
+                                            </button>
                                         }
 
-                                        <!-- Modal -->
-                                        <div class="modal fade" id="bookModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                            <div class="modal-dialog" role="document">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                            <span aria-hidden="true">Book Your Appointment</span>
-                                                        </button>
-                                                    </div>
-                                                    <div id="customer-book-modal" class="modal-body">
-                                                        <!--<div asp-page-handler="ShowModalPartial" asp-route-id="item.ID">-->
-                                                        <!-- AJAX CALL LOADS STUFF -->
+                                        @if (!User.Identity.IsAuthenticated)
+                                        {
+                                            <a class="btn btn-success book-button" id="book-login" asp-area="Identity" asp-page="/Account/Login">BOOK</a>
+                                        }
+                                    }
+                                    else if (appS.BookingStatus == Data.Enums.BookingStatus.Booked)
+                                    {
+                                        @if (User.IsInRole("Customer"))
+                                        {
+                                            <button class="btn btn-danger disabled">
+                                                BOOKED
+                                            </button>
+                                        }
 
-                                                    </div>
+                                        @if (!User.Identity.IsAuthenticated)
+                                        {
+                                            <a class="btn btn-success book-button" id="book-login" asp-area="Identity" asp-page="/Account/Login">BOOK</a>
+                                        }
+                                    }
+                                    else if (appS.BookingStatus == Data.Enums.BookingStatus.Expired)
+                                    {
+                                        @if (User.IsInRole("Customer"))
+                                        {
+                                            <button class="btn btn-secondary disabled">
+                                                EXPIRED
+                                            </button>
+                                        }
 
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                    </div>
-                                                </div>
+                                        @if (!User.Identity.IsAuthenticated)
+                                        {
+                                            <a class="btn btn-success book-button" id="book-login" asp-area="Identity" asp-page="/Account/Login">BOOK</a>
+                                        }
+                                    }
+                                
+                                
+                                
+                                <!-- Modal -->
+                                <div class="modal fade" id="bookModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">Book Your Appointment</span>
+                                                </button>
+                                            </div>
+                                            <div id="customer-book-modal" class="modal-body">
+                                                <!--<div asp-page-handler="ShowModalPartial" asp-route-id="item.ID">-->
+                                                <!-- AJAX CALL LOADS STUFF -->
+
+                                            </div>
+
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                             </div>
                                         </div>
-                                    </td>
+                                    </div>
+                                </div>
+                            </td>
                                 }
 
                                 @* Admin DELETE button *@

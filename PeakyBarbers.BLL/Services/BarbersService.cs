@@ -8,6 +8,7 @@ using PeakyBarbers.Data.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace PeakyBarbers.BLL.Services
@@ -94,7 +95,7 @@ namespace PeakyBarbers.BLL.Services
             Barber newBarber = new Barber
             {
                 FirstName = barberToCreate.FirstName,
-                LastName = barberToCreate.FirstName,
+                LastName = barberToCreate.LastName,
                 ProfileDescription = barberToCreate.ProfileDescription,
                 OverallRating = barberToCreate.OverallRating,
                 Gender = barberToCreate.Gender,
@@ -106,6 +107,14 @@ namespace PeakyBarbers.BLL.Services
             };
 
             var result = await _userManager.CreateAsync(newBarber, barberToCreate.Password);
+
+            // add claims
+            var claimsToAdd = new List<Claim>() {
+                    new Claim(ClaimTypes.GivenName, newBarber.FirstName),
+                    new Claim(ClaimTypes.Surname, newBarber.LastName)
+                };
+
+            var claimsResult = await _userManager.AddClaimsAsync(newBarber, claimsToAdd);
 
             await _userManager.AddToRoleAsync(newBarber, "Barber");
 

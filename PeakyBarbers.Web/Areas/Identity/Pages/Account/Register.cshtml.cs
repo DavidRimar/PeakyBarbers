@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Security.Claims;
 using System.Text;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
@@ -114,6 +115,14 @@ namespace PeakyBarbers.Web.Areas.Identity.Pages.Account
                 };
                 
                 var result = await _userManager.CreateAsync(user, Input.Password);
+
+                // add claims
+                var claimsToAdd = new List<Claim>() {
+                    new Claim(ClaimTypes.GivenName, user.FirstName),
+                    new Claim(ClaimTypes.Surname, user.LastName)
+                };
+
+                var claimsResult = await _userManager.AddClaimsAsync(user, claimsToAdd);
 
                 await _userManager.AddToRoleAsync(user, "Customer");
 

@@ -1,4 +1,6 @@
-﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
+﻿@import "AppointmentList.css";
+
+/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
 for details on configuring this project to bundle and minify static web assets. */
 
 a.navbar-brand {
@@ -110,4 +112,25 @@ body {
 .table {
     margin: auto;
     width: 70% !important;
+}
+
+table.table-fit {
+    width: auto !important;
+    table-layout: auto !important;
+}
+
+table.table-fit thead th, table.table-fit tfoot th {
+    width: auto !important;
+}
+
+table.table-fit tbody td, table.table-fit tfoot td {
+    width: auto !important;
+}
+
+.book-button {
+    display: inline;
+}
+
+table.table-fit th {
+    border: none !important;
 }
