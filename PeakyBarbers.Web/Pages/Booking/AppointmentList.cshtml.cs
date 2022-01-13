@@ -94,28 +94,14 @@ namespace PeakyBarbers.Web.Pages.Booking
 
         }
 
-        public async Task<IActionResult> OnPostFilterBarbersAsync()
-        {
-
-            AllAppointmentSlotHeaders.Where(f => f.BarberFullName != SelectedBarberFullName);
-
-            return Page();
-
-        }
-
         // POST METHODS
         public async Task<IActionResult> OnPostCustomerEditAppointmentSlotAsync()
         {
 
             if (ASEdit.CustomerId == null) {
 
-                // redirect to log in page
-                // or better, show a partial view that lets the User know that he needs to login
-                // or, the buttons wont be visible for guests! Simple!
                 return Page();
             }
-
-            // convert customerId to int
 
             // Check model state is valid
             if (!ModelState.IsValid)
@@ -146,7 +132,7 @@ namespace PeakyBarbers.Web.Pages.Booking
 
 
             // ONCE EDIT IS DONE, GO BACK TO INDEX PAGE
-            return RedirectToPage("./AppointmentList");
+            return RedirectToPage("../MyAppointments/Index");
 
             // TODO: GO TO MY PROFILE > MY BOOKINGS PAGE
 

@@ -29,8 +29,6 @@ namespace PeakyBarbers.BLL.Services
             _userManager = userManager;
         }
 
-        
-
         // GET METHODs
         /// <summary>
         /// Gets All Barbers for the List view.
@@ -65,6 +63,18 @@ namespace PeakyBarbers.BLL.Services
             return await DbContext.Barbers.Where(b => b.Id == id)
                                           .Select(BarberSelectors.BarberDetailsSelector)
                                           .SingleOrDefaultAsync();
+        }
+
+
+        /// <summary>
+        /// Gets a Barber by ID for the delete page.
+        /// </summary>
+        /// <returns></returns>
+        public async Task<BarberDelete> GetBarberToDeleteByIdAsync(int id)
+        {
+            return await DbContext.Barbers.Where(b => b.Id == id)
+                                        .Select(BarberSelectors.BarberDeleteSelector)
+                                        .SingleOrDefaultAsync();
         }
 
         /// <summary>
@@ -117,6 +127,20 @@ namespace PeakyBarbers.BLL.Services
             var claimsResult = await _userManager.AddClaimsAsync(newBarber, claimsToAdd);
 
             await _userManager.AddToRoleAsync(newBarber, "Barber");
+
+            return true;
+        }
+
+        /// <summary>
+        /// Deletes a Barber by Id.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public async Task<bool> PostDeleteBarber(int? id)
+        {
+            Barber barber = await DbContext.Barbers.Where(b => b.Id == id).SingleAsync();
+            DbContext.Barbers.Remove(barber);
+            await DbContext.SaveChangesAsync();
 
             return true;
         }

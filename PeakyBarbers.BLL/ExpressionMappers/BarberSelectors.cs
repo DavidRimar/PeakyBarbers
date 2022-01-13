@@ -51,6 +51,18 @@ namespace PeakyBarbers.BLL.ExpressionMappers
 
         };
 
+        /// <summary>
+        /// BarberDelete Selector
+        /// </summary>
+        public static Expression<Func<Barber, BarberDelete>> BarberDeleteSelector = b => new BarberDelete
+        {
+            Id = b.Id,
+            FirstName = b.FirstName,
+            LastName = b.LastName,
+            Email = b.Email
+
+        };
+
         public static Expression<Func<AppointmentSlot, AppointmentSlotList>> AppointmentSlotListSelector = a => new AppointmentSlotList
         {
             Id = a.Id,

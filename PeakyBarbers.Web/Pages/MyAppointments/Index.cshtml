@@ -3,8 +3,6 @@
 @{
 }
 
-<h1>My Appointments</h1>
-
 <section id="my_appointments">
     
 
@@ -20,7 +18,7 @@
 
                     @foreach (var appSlot in Model.AllAppointmentSlotHeaders)
                     {
-                        if (appSlot.BookingStatus == Data.Enums.BookingStatus.Expired)
+                        @if (appSlot.BookingStatus == Data.Enums.BookingStatus.Expired)
                         {
                             <div class="row mx-1 my-2 rounded d-flex align-items-center justify-content-around border border-dark">
 
@@ -37,7 +35,11 @@
                                     <p class="p-2">@appSlot.BarberFullName</p>
                                 </div>
                                 <div class="col-2">
-                                    <p class="p-2">@appSlot.BookingStatus</p>
+                                    <span style="font-size: 1.4rem;">
+                                        <span style="color: dimgrey;">
+                                            <i class="fas fa-circle"></i>
+                                        </span>
+                                    </span>
                                 </div>
                             </div>
                         }
@@ -60,7 +62,7 @@
 
                     @foreach (var appSlot in Model.AllAppointmentSlotHeaders)
                     {
-                        if (appSlot.BookingStatus == Data.Enums.BookingStatus.Available)
+                        @if (appSlot.BookingStatus == Data.Enums.BookingStatus.Available || appSlot.BookingStatus == Data.Enums.BookingStatus.Booked)
                         {
                             <div class="row mx-1 my-2 rounded d-flex align-items-center justify-content-around border border-dark">
 
@@ -76,9 +78,26 @@
                                 <div class="col-2">
                                     <p class="p-2">@appSlot.BarberFullName</p>
                                 </div>
-                                <div class="col-2">
-                                    <p class="p-2">@appSlot.BookingStatus</p>
-                                </div>
+                                @if (appSlot.BookingStatus == Data.Enums.BookingStatus.Available) {
+                                    <div class="col-2">
+                                        <span style="font-size: 1.4rem;">
+                                            <span style="color: forestgreen;">
+                                                <i class="fas fa-circle"></i>
+                                            </span>
+                                        </span>
+                                    </div>
+                                }
+                                @if (appSlot.BookingStatus == Data.Enums.BookingStatus.Booked) {
+                                    <div class="col-2">
+                                        <span style="font-size: 1.4rem;">
+                                            <span style="color: darkred;">
+                                                <i class="fas fa-circle"></i>
+                                            </span>
+                                        </span>
+                                    </div>
+                                }
+                                
+
                             </div>
                         }
                     }

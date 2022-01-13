@@ -40,7 +40,8 @@ namespace PeakyBarbers.Data.SeedData
 
             // SEED ALL USER RELATED DATA
             IList<ApplicationUser> barberUserList = await userManager.GetUsersInRoleAsync("Barber");
-            await PeakyBarbersDbContextExtensions.EnsureSeedDataForContextAsync(context, barberUserList);
+            IList<ApplicationUser> customerUserList = await userManager.GetUsersInRoleAsync("Customer");
+            await PeakyBarbersDbContextExtensions.EnsureSeedDataForContextAsync(context, barberUserList, customerUserList);
         }
 
         private void CheckSuccess(IdentityResult userResult, IdentityResult roleResult)

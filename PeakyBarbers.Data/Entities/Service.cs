@@ -18,6 +18,8 @@ namespace PeakyBarbers.Data.Entities
 
         public decimal ServiceFee { get; set; }
 
+        public bool IsDeleted { get; set; }
+
         public ICollection<AppointmentSlot> AllAppointmentSlots { get; set; }
 
         public void Configure(EntityTypeBuilder<Service> builder)
@@ -29,7 +31,8 @@ namespace PeakyBarbers.Data.Entities
             builder.HasMany(s => s.AllAppointmentSlots) // this entity: COLLECTION NAVIGATION PROPERTY
                 .WithOne(appSlot => appSlot.Service) // Relationship entity: NAVIGATION PROPERTY
                 .HasForeignKey(appSlot => appSlot.ServiceId) // Relationship entity: FOREIGN KEY
-                .HasPrincipalKey(s => s.Id); // this entity: PRIMARY KEY
+                .HasPrincipalKey(s => s.Id) // this entity: PRIMARY KEY
+                .OnDelete(DeleteBehavior.Restrict); // dont delete related appointments
         }
     }
 }

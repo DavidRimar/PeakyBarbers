@@ -30,7 +30,7 @@ namespace PeakyBarbers.BLL.Services
         /// <returns></returns>
         public async Task<IList<ServiceHeader>> GetAllServicesListViewAsync()
         {
-            return await DbContext.Services.Select(ServiceSelectors.ServiceHeaderSelector).ToListAsync();
+            return await DbContext.Services.Where(s => s.IsDeleted == false).Select(ServiceSelectors.ServiceHeaderSelector).ToListAsync();
         }
 
         public async Task<ServiceDelete> GetServiceToDeleteByIdAsync(int id)
@@ -67,13 +67,16 @@ namespace PeakyBarbers.BLL.Services
         }
 
         /// <summary>
-        /// Delete a Service.
+        /// Set a Service IsDeleted field to true.
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
         public async Task PostDeleteService(int id)
         {
-            DbContext.Services.Remove(new Service { Id = id });
+            Service service = await DbContext.Services.Where(s => s.Id == id).SingleAsync();
+
+            service.IsDeleted = true;
+
             await DbContext.SaveChangesAsync();
         }
 

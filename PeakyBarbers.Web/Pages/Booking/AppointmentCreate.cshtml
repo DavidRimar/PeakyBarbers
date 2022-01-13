@@ -6,17 +6,17 @@
 
     string barberId = null;
     string barberEmail = null;
-    string barberGivenName = null;
-    string barberSurname = null;
-    string barberFullName = null;
+    //string barberGivenName = null;
+    //string barberSurname = null;
+    //string barberFullName = null;
 
     if (User.Identity.IsAuthenticated && User.IsInRole("Barber"))
     {
         barberId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
         barberEmail = User.FindFirst(ClaimTypes.Name).Value;
-        barberGivenName = User.FindFirst(ClaimTypes.GivenName).Value;
-        barberSurname = User.FindFirst(ClaimTypes.Surname).Value;
-        barberFullName = barberGivenName + " " + barberSurname;
+        //barberGivenName = User.FindFirst(ClaimTypes.GivenName).Value;
+        //barberSurname = User.FindFirst(ClaimTypes.Surname).Value;
+        //barberFullName = barberGivenName + " " + barberSurname;
     }
 }
 
@@ -36,12 +36,12 @@
             </div>
 
             <!-- Barber Name == The User (Barber) -->
-
             <div class="form-group">
-                <label class="control-label">Email</label>
-                <input class="form-control" readonly="readonly" value="@barberFullName" />
-                <span class="text-danger"></span>
+                <label asp-for="AppointmentToCreate.BarberFullName" class="control-label"></label>
+                <input asp-for="AppointmentToCreate.BarberFullName" class="form-control" readonly="readonly" value="John Wick"/>
+                <span asp-validation-for="AppointmentToCreate.BarberFullName" class="text-danger"></span>
             </div>
+
             <div class="form-group">
                 <label asp-for="AppointmentToCreate.DayOfYear" class="control-label"></label>
                 <input asp-for="AppointmentToCreate.DayOfYear" class="form-control" />
@@ -65,7 +65,7 @@
 </div>
 
 <div>
-    <a asp-page="ServiceList">Back to Service List</a>
+    <a asp-page="ServiceList">Back to Appointments</a>
 </div>
 
 @section Scripts {

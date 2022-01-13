@@ -23,28 +23,38 @@
                         @* IMAGE *@
                         @if (Model.PeakyBarberNames.Contains(barber.FirstName + " " + barber.LastName))
                         {
-                            <img src="~/images/@(barber.FirstName)_profile.jpg" class="card-img-top card-img-custom pt-3" alt="@barber.FirstName - @barber.LastName image" />
+                            <img src="~/images/profile/@(barber.FirstName)_@(barber.LastName)_profile.jpg" class="card-img-top card-img-custom pt-3" alt="@barber.FirstName - @barber.LastName image" />
                         }
                         else
                         {
-                            <img src="~/images/anonymous-mask.png" class="card-img-top card-img-custom pt-3" alt="@barber.FirstName - @barber.LastName image" />
+                            <img src="~/images/profile/anonymous-mask.png" class="card-img-top card-img-custom pt-3" alt="@barber.FirstName - @barber.LastName image" />
                         }
-                        <div class="card-body">
+                    <div class="card-body">
 
-                            @* CARD TITLE *@
-                            <h5 class="card-title">
-                                @barber.FirstName @barber.LastName
-                            </h5>
+                        @* CARD TITLE *@
+                        <h5 class="card-title">
+                            @barber.FirstName @barber.LastName
+                        </h5>
 
-                            @* CARD Text *@
-                            <p class="card-text card-text-custom card-text-profile">@barber.ProfileDescription</p>
-                            <p class="card-text card-text-custom pt-2">@barber.OverallRating</p>
+                        @* CARD Text *@
+                        <p class="card-text card-text-custom card-text-profile">@barber.ProfileDescription</p>
+                        <p class="card-text card-text-custom pt-2">@barber.OverallRating</p>
 
-                            @* LINK TO PROFILE *@
-                            <a class="btn btn-primary mb-1" asp-page="./BarberDetails" asp-route-id="@barber.Id">Go to Profile</a>
+                        @* LINK TO PROFILE *@
+                        <div class="flex-row">
 
+                                <a class="btn btn-primary mb-1" asp-page="./BarberDetails" asp-route-id="@barber.Id">View Profile</a>
 
+                            
+                                @if (User.IsInRole("Admin"))
+                                {
+
+                                    <a class="btn btn-danger mb-1" asp-page="./BarberDelete" asp-route-id="@barber.Id">Delete</a>
+
+                                }
                         </div>
+
+                    </div>
                     </div>
                 </div>
             }

@@ -90,7 +90,7 @@ namespace PeakyBarbers.BLL.Services
         /// <returns></returns>
         public async Task<IList<ServiceHeader>> GetServicesAsync()
         {
-            return await DbContext.Services.Select(ServiceSelectors.ServiceHeaderSelector).ToListAsync();
+            return await DbContext.Services.Where(s => s.IsDeleted == false).Select(ServiceSelectors.ServiceHeaderSelector).ToListAsync();
         }
 
         public async Task<IList<BarberFullName>> GetBarberFullNamesAsync()
@@ -107,6 +107,9 @@ namespace PeakyBarbers.BLL.Services
 
             // set Customer Id on domain entity from DTO
             asT.CustomerId = asPost.CustomerId;
+
+            // set Service Id on domain entity from DTO
+            asT.ServiceId = asPost.ServiceId;
 
             // set BookingStatus to Booked
             asT.BookingStatus = BookingStatus.Booked;

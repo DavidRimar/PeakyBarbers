@@ -1,0 +1,39 @@
+﻿@page "{id:int}"
+@model PeakyBarbers.Web.Pages.Barbers.BarberDeleteModel
+@{
+    ViewData["Title"] = "Delete Barber";
+}
+
+
+<h1>Delete Barber</h1>
+
+<div>
+    <hr />
+    <dl class="flex-row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.BarberToDelete.FirstName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.BarberToDelete.FirstName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.BarberToDelete.LastName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.BarberToDelete.LastName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.BarberToDelete.Email)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.BarberToDelete.Email)
+        </dd>
+    </dl>
+
+    <form method="post">
+        <input type="hidden" asp-for="BarberToDelete.Id" />
+        <input type="submit" value="Delete" class="btn btn-danger" /> |
+        <a asp-page="./BarberList">Back to Barber List</a>
+    </form>
+
+</div>

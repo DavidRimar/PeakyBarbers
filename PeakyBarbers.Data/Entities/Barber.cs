@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System.Collections.Generic;
 
 namespace PeakyBarbers.Data.Entities
@@ -20,13 +21,15 @@ namespace PeakyBarbers.Data.Entities
             builder.HasMany(barber => barber.AllWorkingHours) // this entity: COLLECTION NAVIGATION PROPERTY
                 .WithOne(workingHour => workingHour.Barber) // Relationship entity: NAVIGATION PROPERTY
                 .HasForeignKey(workingHour => workingHour.BarberId) // Relationship entity: FOREIGN KEY
-                .HasPrincipalKey(barber => barber.Id); // this entity: PRIMARY KEY
+                .HasPrincipalKey(barber => barber.Id) // this entity: PRIMARY KEY
+                .OnDelete(DeleteBehavior.Cascade); // Delete Working Hours
 
             // BARBER-TO-APPOINTMENTSLOTS: 1-to-N relationship
             builder.HasMany(barber => barber.AllAppointmentSlots) // this entity: COLLECTION NAVIGATION PROPERTY
                 .WithOne(appSlot => appSlot.Barber) // Relationship entity: NAVIGATION PROPERTY
                 .HasForeignKey(appSlot => appSlot.BarberId) // Relationship entity: FOREIGN KEY
-                .HasPrincipalKey(barber => barber.Id); // this entity: PRIMARY KEY
+                .HasPrincipalKey(barber => barber.Id) // this entity: PRIMARY KEY
+                .OnDelete(DeleteBehavior.Cascade); // Delete related Appointment Slots
         }
     }
 }

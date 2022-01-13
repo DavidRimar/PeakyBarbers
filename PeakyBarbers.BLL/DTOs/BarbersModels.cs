@@ -161,24 +161,8 @@ namespace PeakyBarbers.BLL.Services.DTOs
         public string LastName { get; set; }
 
         [Required]
-        [Display(Name = "Gender")]
-        public Gender Gender { get; set; }
-
-        [Required]
         [Display(Name = "Email")]
         public string Email { get; set; }
-
-        [Required]
-        [Display(Name = "Years Of Experience")]
-        public int YearsOfExperience { get; set; }
-
-        [Required]
-        [Display(Name = "Rating")]
-        public int OverallRating { get; set; }
-
-        [Required]
-        [Display(Name = "Profile")]
-        public string ProfileDescription { get; set; }
     }
 
     // Appointment Slots
