@@ -25,7 +25,7 @@ namespace PeakyBarbers.Web.Pages.Services
         public async Task<IActionResult> OnGetAsync(int id)
         {
 
-            ServiceToDelete = await ServicesService.GetServiceToDeleteByIdAsync(id);
+            await LoadAsync(id);
 
             if (ServiceToDelete == null)
             {
@@ -35,18 +35,27 @@ namespace PeakyBarbers.Web.Pages.Services
             return Page();
         }
 
-        public async Task<IActionResult> OnPostAsync(int? id)
+        public async Task<IActionResult> OnPostAsync(int id)
         {
-            if (id == null)
+            if (!ModelState.IsValid)
             {
-                return NotFound();
+                await LoadAsync(id);
+
+                return Page();
             }
 
-            await ServicesService.PostDeleteService(id.Value);
+            await ServicesService.PostDeleteService(id);
 
             // TODO: To Confirm Delete on Page, and not redirect
 
             return RedirectToPage("./ServiceList");
+        }
+
+        private async Task LoadAsync(int id)
+        {
+
+            ServiceToDelete = await ServicesService.GetServiceToDeleteByIdAsync(id);
+
         }
     }
 }

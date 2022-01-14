@@ -27,7 +27,7 @@ namespace PeakyBarbers.Web.Pages.Booking
         public async Task<IActionResult> OnGetAsync(int id)
         {
 
-            AppSlotToDelete = await BookingService.GetAppointmentToDeleteByIdAsync(id);
+            await LoadAsync(id);
 
             if (AppSlotToDelete == null)
             {
@@ -37,18 +37,27 @@ namespace PeakyBarbers.Web.Pages.Booking
             return Page();
         }
 
-        public async Task<IActionResult> OnPostAsync(int? id)
+        public async Task<IActionResult> OnPostAsync(int id)
         {
-            if (id == null)
+            if (!ModelState.IsValid)
             {
-                return NotFound();
+                await LoadAsync(id);
+
+                return Page();
             }
 
-            _ = await BookingService.PostDeleteAppointmentSlot(id.Value);
+            _ = await BookingService.PostDeleteAppointmentSlot(id);
 
             // TODO: To Confirm Delete on Page, and not redirect
 
             return RedirectToPage("./AppointmentList");
+        }
+
+        private async Task LoadAsync(int id)
+        {
+
+            AppSlotToDelete = await BookingService.GetAppointmentToDeleteByIdAsync(id);
+
         }
     }
 }

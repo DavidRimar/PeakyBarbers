@@ -24,7 +24,7 @@ namespace PeakyBarbers.Web.Pages.Services
         public async Task<IActionResult> OnGetAsync(int id)
         {
 
-            ServiceToEdit = await ServicesService.GetServiceToEditByIdAsync(id);
+            await LoadAsync(id);
 
             if (ServiceToEdit == null)
             {
@@ -38,12 +38,21 @@ namespace PeakyBarbers.Web.Pages.Services
         {
             if (!ModelState.IsValid)
             {
+
+                await LoadAsync(ServiceToEdit.Id);
+
                 return Page();
             }
 
             await ServicesService.PostEditService(ServiceToEdit);
 
             return new RedirectToPageResult("./ServiceList");
+        }
+
+        private async Task LoadAsync(int id) {
+
+            ServiceToEdit = await ServicesService.GetServiceToEditByIdAsync(id);
+
         }
     }
 }

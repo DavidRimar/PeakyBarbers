@@ -5,39 +5,47 @@
 
 <h1>Delete Appointment</h1>
 
+<div class="row">
+    <div class="col-md-5">
+
+
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <input type="hidden" asp-for="AppSlotToDelete.Id" />
+
+            <div class="form-group">
+                <label asp-for="AppSlotToDelete.BarberFullName" class="control-label"></label>
+                <input asp-for="AppSlotToDelete.BarberFullName" class="form-control" readonly="readonly" value=@Model.AppSlotToDelete.BarberFullName />
+                <span asp-validation-for="AppSlotToDelete.BarberFullName" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="AppSlotToDelete.DayOfYear" class="control-label"></label>
+                <input type="hidden" asp-for="AppSlotToDelete.DayOfYear" class="form-control" readonly="readonly" value=@Model.AppSlotToDelete.DayOfYear/>
+                @Html.TextBoxFor(model => model.AppSlotToDelete.DayOfYear, new { disabled = "disabled", @readonly = "readonly", @class = "form-control" })
+            </div>
+
+            <div class="form-group">
+                <label asp-for="AppSlotToDelete.StartTime" class="control-label"></label>
+                <input asp-for="AppSlotToDelete.StartTime" class="form-control" readonly="readonly" value=@Model.AppSlotToDelete.StartTime />
+                <span asp-validation-for="AppSlotToDelete.StartTime" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="AppSlotToDelete.EndTime" class="control-label"></label>
+                <input asp-for="AppSlotToDelete.EndTime" class="form-control" readonly="readonly" value=@Model.AppSlotToDelete.EndTime />
+                <span asp-validation-for="AppSlotToDelete.EndTime" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Delete" class="btn btn-danger" />
+            </div>
+        </form>
+
+    </div>
+</div>
+
 <div>
-    <hr />
-    <dl class="flex-row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.AppSlotToDelete.BarberFullName)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.AppSlotToDelete.BarberFullName)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.AppSlotToDelete.DayOfYear)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.AppSlotToDelete.DayOfYear)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.AppSlotToDelete.StartTime)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.AppSlotToDelete.StartTime)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.AppSlotToDelete.EndTime)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.AppSlotToDelete.EndTime)
-        </dd>
-    </dl>
-
-    <form method="post">
-        <input type="hidden" asp-for="AppSlotToDelete.Id" />
-        <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-page="./AppointmentList">Back to Appointment List</a>
-    </form>
-
+    <a asp-page="./AppointmentList">Back to Appointment List</a>
 </div>

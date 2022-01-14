@@ -56,24 +56,10 @@ namespace PeakyBarbers.Web.Pages.Booking
         // GET METHODS
         public async Task<IActionResult> OnGetAsync(string? date)
         {
-            // assuming that the request for the page comes with a date string
-            // call SetStartDates method
-            SetStartDates(date);
-
-            // get all appointment slots for this period
-            AllAppointmentSlotHeaders = await BookingService.GetAppointmentSlotsForCurrentWeekAsync(CurrentWeekStartDayString);
-
-            // filter by barber
-            if (!string.IsNullOrEmpty(SelectedBarberFullName))
-            {
-                AllAppointmentSlotHeaders = AllAppointmentSlotHeaders.Where(f => f.BarberFullName == SelectedBarberFullName).ToList();
-            }
-
-            // set BarberList from appointments
-            SetBarberListItems();
+            // load data required for the page
+            await LoadAsync(date);
 
             return Page();
-
         }
 
         public async Task<PartialViewResult> OnGetShowBookModalPartialAsync(int id)
@@ -98,11 +84,6 @@ namespace PeakyBarbers.Web.Pages.Booking
         public async Task<IActionResult> OnPostCustomerEditAppointmentSlotAsync()
         {
 
-            if (ASEdit.CustomerId == null) {
-
-                return Page();
-            }
-
             // Check model state is valid
             if (!ModelState.IsValid)
             {
@@ -117,6 +98,10 @@ namespace PeakyBarbers.Web.Pages.Booking
                         System.Diagnostics.Debug.WriteLine("Error: ", error);
                     }
                 }
+
+                // loadAsync to reload the data
+                await LoadAsync(CurrentWeekStartDayString);
+
                 // return page so that no POST operation completes!
                 return Page();
             }
@@ -134,29 +119,8 @@ namespace PeakyBarbers.Web.Pages.Booking
             // ONCE EDIT IS DONE, GO BACK TO INDEX PAGE
             return RedirectToPage("../MyAppointments/Index");
 
-            // TODO: GO TO MY PROFILE > MY BOOKINGS PAGE
-
         }
 
-        // DELETE (if done with Ajax withour redirecting)
-        /*
-        public async Task<IActionResult> OnPost(int id)
-        {
-
-            System.Threading.Thread.Sleep(8000);
-
-            // use Booking Service to delete
-            _ = await BookingService.PostDeleteAppointmentSlot(id);
-
-            // client-side page rerendering with AJAX
-            return new JsonResult(new { url = "reload" });
-
-
-            // ONCE EDIT IS DONE, GO BACK TO INDEX PAGE
-            // return RedirectToPage("./BookingList");
-
-        }
-        */
 
         // PRIVATE METHODS
         private void SetCurrentWeekString()
@@ -169,11 +133,6 @@ namespace PeakyBarbers.Web.Pages.Booking
 
         private void SetStartDates(string? date)
         {
-
-            // TODO: For the first time page request, no date is passed in (Date is passed in only after Navigation)
-            // Default Start Dates to be DateTime Today!
-            // Need to align Seed Data to be generated for 2-4 weeks from DateTime now!
-
             // if no date is passed in
             if (date == null)
             {
@@ -192,7 +151,6 @@ namespace PeakyBarbers.Web.Pages.Booking
             }
 
             SetCurrentWeekString();
-
         }
 
         private void SetServiceListItems()
@@ -200,7 +158,6 @@ namespace PeakyBarbers.Web.Pages.Booking
 
             ServiceList = new List<SelectListItem>() { };
 
-            // iterate over Services and create Select Items from them
             for (int i = 0; i < ServiceCollection.Count; i++)
             {
                 ServiceList.Add(new SelectListItem { Text = ServiceCollection[i].ServiceName, Value = ServiceCollection[i].Id.ToString() });
@@ -219,6 +176,30 @@ namespace PeakyBarbers.Web.Pages.Booking
 
                 BarberList.Add(new SelectListItem { Text = barberNames[i].barberFullName, Value = barberNames[i].barberFullName });
             }
+        }
+
+        private async Task LoadAsync(string? date)
+        {
+
+            // assuming that the request for the page comes with a date string
+            // call SetStartDates method
+            SetStartDates(date);
+
+            // get all appointment slots for this period
+            AllAppointmentSlotHeaders = await BookingService.GetAppointmentSlotsForCurrentWeekAsync(CurrentWeekStartDayString);
+
+            // works for the first time
+
+            // filter by barber
+            if (!string.IsNullOrEmpty(SelectedBarberFullName))
+            {
+                // selecteBarberFullName can be "All Barbers"
+                AllAppointmentSlotHeaders = AllAppointmentSlotHeaders.Where(f => f.BarberFullName == SelectedBarberFullName).ToList();
+            }
+
+            // set BarberList from appointments
+            SetBarberListItems();
+
         }
     }
 }

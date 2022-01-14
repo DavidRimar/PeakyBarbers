@@ -74,7 +74,7 @@ body {
 }
 
 .jumbotron-custom {
-    background-image: url('../images/jumbotron.png');
+    background-image: url('../images/jumbotron/jumbotron.png');
     background-repeat: no-repeat;
     background-size: contain;
     background-position: center;
