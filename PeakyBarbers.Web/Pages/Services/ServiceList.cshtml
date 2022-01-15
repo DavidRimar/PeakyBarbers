@@ -7,11 +7,12 @@
 
 <h1>Our Services</h1>
 
+@if (User.IsInRole("Admin"))
+{
 <p>
-    @* TODO: Restrict for Admin Barbers*@
-    <a asp-page="ServiceCreate">Create New Service</a>
+    <a class="btn btn-primary" asp-page="ServiceCreate">Create New Service</a>
 </p>
-
+}
 
 <table class="table" id="servicesTable">
     <thead>
@@ -25,14 +26,16 @@
             <th>
                 @Html.DisplayNameFor(model => model.ServiceList[0].ApproximateServiceDurationInMinutes)
             </th>
-            @* TODO: Restrict for Admin Barbers*@
-            <th>
-                Edit
-            </th>
-            @* TODO: Restrict for Admin Barbers*@
-            <th>
-                Delete
-            </th>
+            @if (User.IsInRole("Admin"))
+            {
+                <th>
+                    Edit
+                </th>
+                <th>
+                    Delete
+                </th>
+            }
+
         </tr>
     </thead>
 
@@ -49,12 +52,17 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.ApproximateServiceDurationInMinutes) mins
                 </td>
-                <td class="text-nowrap">
-                    <a asp-page="ServiceEdit" asp-route-id="@item.Id">Edit</a>
-                </td>
-                <td class="text-nowrap">
-                    <a asp-page="ServiceDelete" asp-route-id="@item.Id">Delete</a>
-                </td>
+                @if (User.IsInRole("Admin"))
+                {
+                    <td class="col-2 mx-5 text-nowrap">
+                        <a class="btn btn-warning" asp-page="ServiceEdit" asp-route-id="@item.Id">Edit</a>
+                    </td>
+
+                    <td class="col-2 mx-5 text-nowrap">
+                        <a class="btn btn-danger" asp-page="ServiceDelete" asp-route-id="@item.Id">Delete</a>
+                    </td>
+
+                }
             </tr>
         }
     </tbody>
@@ -62,8 +70,8 @@
 
 @section Scripts{
     <script>
-        //$(document).ready(function () {
-        //    $("#servicesTable").dataTable();
-        //});
+            //$(document).ready(function () {
+            //    $("#servicesTable").dataTable();
+            //});
     </script>
 }

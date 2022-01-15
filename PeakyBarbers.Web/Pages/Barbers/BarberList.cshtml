@@ -4,22 +4,26 @@
     ViewData["Title"] = "Barber List";
 }
 
+<h1 class="display-4 personnel-text mb-3">Our Peaky Barbers</h1>
+
+@if (User.IsInRole("Admin"))
+{
 <p>
-    @* TODO: Restrict for Admin Barbers*@
-    <a asp-page="BarberCreate">Create New Barber</a>
+    <a class="btn btn-primary" asp-page="BarberCreate">Create New Barber</a>
 </p>
+}
 
 <section id="personnel">
-    <h1 class="display-4 personnel-text">Our Peaky Barbers</h1>
+    
 
     <div class="container text-center">
-        <div class="row d-flex align-items-start justify-content-start border border-dark">
+        <div class="row d-flex align-items-start justify-content-start">
             @foreach (var barber in Model.BarberList)
             {
 
 
-                <div class="col-sm-6 col-md-4 col-lg-3 mx-auto my-1 border border-danger">
-                    <div class="card rounded align-items-center border border-success card-custom">
+                <div class="col-sm-6 col-md-4 col-lg-3 mx-auto my-1">
+                    <div class="card rounded align-items-center border border-dark card-custom">
                         @* IMAGE *@
                         @if (Model.PeakyBarberNames.Contains(barber.FirstName + " " + barber.LastName))
                         {
@@ -29,32 +33,32 @@
                         {
                             <img src="~/images/profile/anonymous-mask.png" class="card-img-top card-img-custom pt-3" alt="@barber.FirstName - @barber.LastName image" />
                         }
-                    <div class="card-body">
+                        <div class="card-body">
 
-                        @* CARD TITLE *@
-                        <h5 class="card-title">
-                            @barber.FirstName @barber.LastName
-                        </h5>
+                            @* CARD TITLE *@
+                            <h5 class="card-title">
+                                @barber.FirstName @barber.LastName
+                            </h5>
 
-                        @* CARD Text *@
-                        <p class="card-text card-text-custom card-text-profile">@barber.ProfileDescription</p>
-                        <p class="card-text card-text-custom pt-2">@barber.OverallRating</p>
+                            @* CARD Text *@
+                            <p class="card-text card-text-custom card-text-profile">@barber.ProfileDescription</p>
+                            <p class="card-text card-text-custom pt-2">@barber.OverallRating</p>
 
-                        @* LINK TO PROFILE *@
-                        <div class="flex-row">
+                            @* LINK TO PROFILE *@
+                            <div class="flex-row">
 
                                 <a class="btn btn-primary mb-1" asp-page="./BarberDetails" asp-route-id="@barber.Id">View Profile</a>
 
-                            
+
                                 @if (User.IsInRole("Admin"))
                                 {
 
                                     <a class="btn btn-danger mb-1" asp-page="./BarberDelete" asp-route-id="@barber.Id">Delete</a>
 
                                 }
-                        </div>
+                            </div>
 
-                    </div>
+                        </div>
                     </div>
                 </div>
             }

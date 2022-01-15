@@ -16,6 +16,8 @@ namespace PeakyBarbers.Web.Pages.Barbers
         public IReadOnlyCollection<WorkingHoursHeader> WorkingHours { get; set; }
         public BarbersService BarbersService { get; }
 
+        public IList<string> PeakyBarberNames { get; set; }
+
         // CONSTRUCTOR
         public BarberDetailsModel(BarbersService barbersService)
         {
@@ -36,8 +38,20 @@ namespace PeakyBarbers.Web.Pages.Barbers
                 return NotFound();
             }
 
+            SetPeakyBarberNames();
+
             return Page();
 
+        }
+
+        private void SetPeakyBarberNames()
+        {
+            PeakyBarberNames = new List<string>
+            {
+                "Thomas Shelby",
+                "Arthur Shelby",
+                "John Shelby"
+            };
         }
     }
 }

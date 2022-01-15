@@ -89,8 +89,20 @@ namespace PeakyBarbers.Web
 
             // RAZOR PAGES
             services.AddRazorPages(options => {
-                options.Conventions.AuthorizePage("/Booking/AppointmentCreate", "RequireBarberRole"); // Both non-Admin and Admin Barbers create for themselves
-                options.Conventions.AuthorizePage("/Booking/AppointmentDelete", "RequireBarberRole"); // non-Admin Barber deletes his own, Admin deltes for all 
+
+                // appointments
+                options.Conventions.AuthorizePage("/Booking/AppointmentCreate", "RequireBarberRole"); // non-Admin Barber creates his own, Admin Barber creates his own
+                options.Conventions.AuthorizePage("/Booking/AppointmentDelete", "RequireBarberRole"); // non-Admin Barber deletes his own, Admin can delete for all (done in BLL)
+
+                // services
+                options.Conventions.AuthorizePage("/Services/ServiceCreate", "RequireAdminRole"); // only Admin can create a Service
+                options.Conventions.AuthorizePage("/Services/ServiceDelete", "RequireAdminRole"); // only Admin can delete a Service
+                options.Conventions.AuthorizePage("/Services/ServiceEdit", "RequireAdminRole"); // only Admin can edit a Service
+
+                // barbers
+                options.Conventions.AuthorizePage("/Barbers/BarberCreate", "RequireAdminRole"); // only Admin can create a Barber
+                options.Conventions.AuthorizePage("/Barbers/BarberDelete", "RequireAdminRole"); // only Admin can delete a Barber
+                options.Conventions.AuthorizePage("/Barbers/BarberEdit", "RequireAdminRole"); // only Admin can edit a Barber
             });
 
             

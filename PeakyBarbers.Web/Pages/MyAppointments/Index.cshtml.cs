@@ -65,7 +65,7 @@ namespace PeakyBarbers.Web.Pages.MyAppointments
             }
 
             // if there are any available
-            if (AllAppointmentSlotHeaders.Where(a => a.BookingStatus == BookingStatus.Booked).Any())
+            if (AllAppointmentSlotHeaders.Where(a => a.BookingStatus != BookingStatus.Expired).Any())
             {
                 IsThereAvailableAppSlot = true;
             }

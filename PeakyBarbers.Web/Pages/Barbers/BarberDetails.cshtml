@@ -11,9 +11,14 @@
     @* BARBER PROFILE *@
     <div class="row py-3 border-bottom border-dark align-items-center">
         <div class="col-sm-4">
-
-            <img src="~/images/@(Model.BarberDetails.FirstName)_profile.jpg" class="card-img-top profile-image" alt="@Model.BarberDetails.FirstName @Model.BarberDetails.LastName image" />
-
+            @if (Model.PeakyBarberNames.Contains(Model.BarberDetails.FirstName + " " + Model.BarberDetails.LastName))
+            {
+                <img src="~/images/profile/@(Model.BarberDetails.FirstName)_@(Model.BarberDetails.LastName)_profile.jpg" class="card-img-top card-img-custom pt-3" alt="@Model.BarberDetails.FirstName - @Model.BarberDetails.LastName image" />
+            }
+            else
+            {
+                <img src="~/images/profile/anonymous-mask.png" class="card-img-top card-img-custom pt-3" alt="@Model.BarberDetails.FirstName - @Model.BarberDetails.LastName image" />
+            }
         </div>
         <div class="col-sm-8">
 
@@ -113,14 +118,15 @@
 <div class="d-flex flex-row justify-content-center my-4">
     @if (User.Identity.IsAuthenticated && User.IsInRole("Customer"))
     {
-        <a class="btn btn-danger mx-3 mx-sm-4 mx-lg-5" type="button" asp-area="" asp-page="/Booking/BookingList">Book An Appointment</a>
+        @* TODO: Pass this Barber's name to filter for appointments  *@
+        <a class="btn btn-success mx-3 mx-sm-4 mx-lg-5" type="button" asp-area="" asp-page="/Booking/AppointmentList">Book An Appointment</a>
     }
     else if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
     {
         <a class="btn btn-warning mx-3 mx-sm-4 mx-lg-5" type="button" asp-area="" asp-page="/Barbers/BarberEdit" asp-route-id="@Model.BarberDetails.Id">Edit Barber Details</a>
         <a class="btn btn-danger mx-3 mx-sm-4 mx-lg-5" type="button" asp-page="/Barbers/BarberDelete" asp-route-id="@Model.BarberDetails.Id">Delete</a>
 
-      
+
     }
     else if (!User.Identity.IsAuthenticated)
     {

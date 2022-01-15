@@ -6,17 +6,17 @@
 
     string barberId = null;
     string barberEmail = null;
-    //string barberGivenName = null;
-    //string barberSurname = null;
-    //string barberFullName = null;
+    string barberGivenName = null;
+    string barberSurname = null;
+    string barberFullName = null;
 
     if (User.Identity.IsAuthenticated && User.IsInRole("Barber"))
     {
         barberId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
         barberEmail = User.FindFirst(ClaimTypes.Name).Value;
-        //barberGivenName = User.FindFirst(ClaimTypes.GivenName).Value;
-        //barberSurname = User.FindFirst(ClaimTypes.Surname).Value;
-        //barberFullName = barberGivenName + " " + barberSurname;
+        barberGivenName = User.FindFirst(ClaimTypes.GivenName).Value;
+        barberSurname = User.FindFirst(ClaimTypes.Surname).Value;
+        barberFullName = barberGivenName + " " + barberSurname;
     }
 }
 
@@ -38,7 +38,7 @@
             <!-- Barber Name == The User (Barber) -->
             <div class="form-group">
                 <label asp-for="AppointmentToCreate.BarberFullName" class="control-label"></label>
-                <input asp-for="AppointmentToCreate.BarberFullName" class="form-control" readonly="readonly" value="John Wick"/>
+                <input asp-for="AppointmentToCreate.BarberFullName" class="form-control" readonly="readonly" value=@barberFullName/>
                 <span asp-validation-for="AppointmentToCreate.BarberFullName" class="text-danger"></span>
             </div>
 
