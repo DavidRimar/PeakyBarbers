@@ -65,6 +65,7 @@ namespace PeakyBarbers.BLL.Services.DTOs
         public int YearsOfExperience { get; set; }
 
         [Required]
+        [Range(0, 10)]
         [Display(Name = "Rating")]
         public int OverallRating { get; set; }
 
@@ -101,10 +102,12 @@ namespace PeakyBarbers.BLL.Services.DTOs
         public string Password { get; set; }
 
         [Required]
+        [Range(0, 100)]
         [Display(Name = "Years Of Experience")]
         public int YearsOfExperience { get; set; }
 
         [Required]
+        [Range(0,10)]
         [Display(Name = "Rating")]
         public int OverallRating { get; set; }
 
@@ -135,10 +138,12 @@ namespace PeakyBarbers.BLL.Services.DTOs
         public string Email { get; set; }
 
         [Required]
+        [Range(0, 100)]
         [Display(Name = "Years Of Experience")]
         public int YearsOfExperience { get; set; }
 
         [Required]
+        [Range(0, 10)]
         [Display(Name = "Rating")]
         public int OverallRating { get; set; }
 

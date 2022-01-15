@@ -22,7 +22,7 @@ namespace PeakyBarbers.BLL.Services.DTOs
         public decimal ServiceFee { get; set; }
 
         [Required]
-        [Display(Name = "Duration")]
+        [Display(Name = "Duration (mins)")]
         public int ApproximateServiceDurationInMinutes { get; set; }
     }
 
@@ -46,7 +46,7 @@ namespace PeakyBarbers.BLL.Services.DTOs
 
         [Required]
         [Range(1, 1000)]
-        [Display(Name = "Duration")]
+        [Display(Name = "Duration (minutes)")]
         public int ApproximateServiceDurationInMinutes { get; set; }
     }
 
@@ -70,7 +70,7 @@ namespace PeakyBarbers.BLL.Services.DTOs
 
         [Required]
         [Range(1, 1000)]
-        [Display(Name = "Duration")]
+        [Display(Name = "Duration (minutes)")]
         public int ApproximateServiceDurationInMinutes { get; set; }
     }
 
@@ -92,7 +92,7 @@ namespace PeakyBarbers.BLL.Services.DTOs
         public string ServiceDescription { get; set; }
 
         [Required]
-        [Display(Name = "Duration")]
+        [Display(Name = "Duration (minutes)")]
         public int ApproximateServiceDurationInMinutes { get; set; }
     }
 }

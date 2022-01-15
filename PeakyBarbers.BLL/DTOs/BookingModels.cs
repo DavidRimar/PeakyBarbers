@@ -1,4 +1,5 @@
-﻿using PeakyBarbers.Data.Enums;
+﻿using PeakyBarbers.BLL.CustomValidators;
+using PeakyBarbers.Data.Enums;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -79,6 +80,7 @@ namespace PeakyBarbers.BLL.Services.DTOs
 
         [Required]
         [DataType(DataType.Date)]
+        [DateGreaterThanNow]
         [Display(Name = "Day")]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:yyyy/MM/dd}")]
         public DateTime DayOfYear { get; set; }
