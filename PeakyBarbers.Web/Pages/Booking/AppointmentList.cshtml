@@ -50,8 +50,12 @@
                     <option value="">All Barbers</option>
                 </select>
             </div>
+            <div class="col-1 d-none">
+                <input type="hidden" asp-for="CurrentWeekStartDayString" value="@Model.CurrentWeekStartDayString" />
+            </div>
             <div class="col-2">
                 <input type="submit" value="Filter" class="btn btn-outline-primary" />
+                
             </div>
         </div>
     </form>

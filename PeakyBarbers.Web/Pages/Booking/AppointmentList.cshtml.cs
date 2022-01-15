@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -36,6 +37,8 @@ namespace PeakyBarbers.Web.Pages.Booking
 
         // Previous, Current and Next Week Start Days to be used as asp-routes for navigation
         public string PreviousWeekStartDayString { get; set; }
+
+        [BindProperty(SupportsGet = true)]
         public string CurrentWeekStartDayString { get; set; }
         public string NextWeekStartDayString { get; set; }
 
@@ -51,6 +54,7 @@ namespace PeakyBarbers.Web.Pages.Booking
         {
             _logger = logger;
             BookingService = bookingService;
+            BarberList = new List<SelectListItem>() { };
         }
 
         // GET METHODS
@@ -134,10 +138,17 @@ namespace PeakyBarbers.Web.Pages.Booking
         private void SetStartDates(string? date)
         {
             // if no date is passed in
-            if (date == null)
+            if (date == null && CurrentWeekStartDayString == null)
             {
                 // set default start dates
                 CurrentWeekStartDayString = DateTime.Today.ToString("dd-MM-yyyy");
+                PreviousWeekStartDayString = DateTime.Today.AddDays(-7).ToString("dd-MM-yyyy");
+                NextWeekStartDayString = DateTime.Today.AddDays(7).ToString("dd-MM-yyyy");
+            }
+            // if the user filters, stay on the current week
+            else if (CurrentWeekStartDayString != null) {
+
+                CurrentWeekStartDayString = CurrentWeekStartDayString;
                 PreviousWeekStartDayString = DateTime.Today.AddDays(-7).ToString("dd-MM-yyyy");
                 NextWeekStartDayString = DateTime.Today.AddDays(7).ToString("dd-MM-yyyy");
             }
@@ -165,17 +176,19 @@ namespace PeakyBarbers.Web.Pages.Booking
 
         }
 
-        private async void SetBarberListItems()
+        private async Task<bool> SetBarberListItems()
         {
             IList<BarberFullName> barberNames = await BookingService.GetBarberFullNamesAsync();
 
-            BarberList = new List<SelectListItem>() { };
+            // BarberList = new List<SelectListItem>() { };
 
             for (int i = 0; i < barberNames.Count; i++)
             {
 
                 BarberList.Add(new SelectListItem { Text = barberNames[i].barberFullName, Value = barberNames[i].barberFullName });
             }
+
+            return true;
         }
 
         private async Task LoadAsync(string? date)
@@ -198,7 +211,9 @@ namespace PeakyBarbers.Web.Pages.Booking
             }
 
             // set BarberList from appointments
-            SetBarberListItems();
+            var finished = await SetBarberListItems();
+
+            Debug.WriteLine("Finsihed: ", finished);
 
         }
     }
