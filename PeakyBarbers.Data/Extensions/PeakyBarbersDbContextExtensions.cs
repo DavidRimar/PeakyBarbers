@@ -92,6 +92,10 @@ namespace PeakyBarbers.Data.Extensions
                 // if day is before today, booking status is expired
                 var bookingStatus = (DateTime.Compare(date, DateTime.Today) < 0) ? BookingStatus.Expired: BookingStatus.Available;
 
+                if (customerId != null && bookingStatus != BookingStatus.Expired) {
+                    bookingStatus = BookingStatus.Booked;
+                }
+
                 AppointmentSlot appSlot = new AppointmentSlot { BarberId = barberId, CustomerId = customerId, DayOfYear = date, StartTime = startTime, EndTime = endTime, BookingStatus = bookingStatus, CreationDate = DateTime.Now, ModifiedDate = DateTime.Now };
 
                 entities.Add(appSlot);

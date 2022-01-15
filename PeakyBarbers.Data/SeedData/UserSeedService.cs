@@ -146,8 +146,8 @@ namespace PeakyBarbers.Data.SeedData
                 };
 
                 var claimsResult1 = await userManager.AddClaimsAsync(tomShelby, claims1);
-                var claimsResult2 = await userManager.AddClaimsAsync(johnShelby, claims1);
-                var claimsResult3 = await userManager.AddClaimsAsync(arthurShelby, claims1);
+                var claimsResult2 = await userManager.AddClaimsAsync(johnShelby, claims2);
+                var claimsResult3 = await userManager.AddClaimsAsync(arthurShelby, claims3);
 
                 // add role to user
                 var addRoleResultOne = await userManager.AddToRoleAsync(tomShelby, role);
@@ -170,7 +170,7 @@ namespace PeakyBarbers.Data.SeedData
             {
 
                 // initialize Persons
-                ApplicationUser applicationUserPersonOne = new Customer
+                ApplicationUser jamieVardy = new Customer
                 {
                     FirstName = "Jamie",
                     LastName = "Vardy",
@@ -185,7 +185,7 @@ namespace PeakyBarbers.Data.SeedData
                     EmailConfirmed = true
                 };
 
-                ApplicationUser applicationUserPersonTwo = new Customer
+                ApplicationUser jackGrealish = new Customer
                 {
                     FirstName = "Jack",
                     LastName = "Grealish",
@@ -201,24 +201,37 @@ namespace PeakyBarbers.Data.SeedData
                 };
 
                 // create user with password
-                var createResultOne = await userManager.CreateAsync(applicationUserPersonOne, "Password123!");
-                var createResultTwo = await userManager.CreateAsync(applicationUserPersonTwo, "Password123!");
+                var createResultOne = await userManager.CreateAsync(jamieVardy, "Password123!");
+                var createResultTwo = await userManager.CreateAsync(jackGrealish, "Password123!");
 
                 // confirm registration if required
                 if (userManager.Options.SignIn.RequireConfirmedAccount)
                 {
 
                     // confirm registration
-                    var code = await userManager.GenerateEmailConfirmationTokenAsync(applicationUserPersonOne);
-                    var result = await userManager.ConfirmEmailAsync(applicationUserPersonOne, code);
+                    var code = await userManager.GenerateEmailConfirmationTokenAsync(jamieVardy);
+                    var result = await userManager.ConfirmEmailAsync(jamieVardy, code);
 
-                    var code2 = await userManager.GenerateEmailConfirmationTokenAsync(applicationUserPersonTwo);
-                    var result2 = await userManager.ConfirmEmailAsync(applicationUserPersonTwo, code2);
+                    var code2 = await userManager.GenerateEmailConfirmationTokenAsync(jackGrealish);
+                    var result2 = await userManager.ConfirmEmailAsync(jackGrealish, code2);
                 }
 
+                // add claims
+                var claims1 = new List<Claim>() {
+                    new Claim(ClaimTypes.GivenName, jamieVardy.FirstName),
+                    new Claim(ClaimTypes.Surname, jamieVardy.LastName)
+                };
+                var claims2 = new List<Claim>() {
+                    new Claim(ClaimTypes.GivenName, jackGrealish.FirstName),
+                    new Claim(ClaimTypes.Surname, jackGrealish.LastName)
+                };
+
+                var claimsResult1 = await userManager.AddClaimsAsync(jamieVardy, claims1);
+                var claimsResult2 = await userManager.AddClaimsAsync(jackGrealish, claims2);
+
                 // add role to user
-                var addRoleResultOne = await userManager.AddToRoleAsync(applicationUserPersonOne, role);
-                var addRoleResultTwo = await userManager.AddToRoleAsync(applicationUserPersonTwo, role);
+                var addRoleResultOne = await userManager.AddToRoleAsync(jamieVardy, role);
+                var addRoleResultTwo = await userManager.AddToRoleAsync(jackGrealish, role);
 
                 // check user
                 CheckSuccess(createResultOne, addRoleResultOne);
